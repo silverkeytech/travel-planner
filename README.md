@@ -7,6 +7,5 @@
 [See full Design on Penpot](https://design.penpot.app/#/view/8ec95363-4e2c-80a4-8002-ca77eda9a91a?page-id=8ec95363-4e2c-80a4-8002-ca77eda9a91b)
 
 # DB schema
-![image](https://github.com/silverkeytech/travel-planner/assets/125312170/28e68998-f173-4fdc-a90f-9e7b24660268)
-![image](https://github.com/silverkeytech/travel-planner/assets/125312170/43120d18-ae21-43b8-84f3-7efed926b609)
+[See Full Schema here](https://github.com/silverkeytech/travel-planner/wiki/Specifications#5-database-schema)
 
