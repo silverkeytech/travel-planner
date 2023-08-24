@@ -75,7 +75,7 @@ module default {
         rate: float32;
         comment: str;
     }
-    type Place_to_visit {
+    type PlaceToVisit {
         name: str;
         image_path: str;
         description: str;
