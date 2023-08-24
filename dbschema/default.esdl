@@ -2,9 +2,16 @@ module default {
     scalar type TransportationType extending enum<PrivateSedan, PrivateMinibus, PublicBus>;
     scalar type RoomType extending enum<SingleRoom, DoubleRoom, TripleRoom>;
     scalar type AccomodationMode extending enum<Friends, Family, Solo>;
+    
     # To be extending for more tags
     scalar type AccomodationFacilities extending enum<Wifi, RoomService, FreeParking, DisabledGuests, Beachfront>;
     scalar type ReservationStatus extending enum<Pending, InProgress, Confirmed>;
+    
+    # Should we assign different roles for admins? aka one responsible of reservations only, 
+    # one responsible of adjusting accommodations and places, and so on ???
+    scalar type AdminRole extending enum<admin>;
+    scalar type AdminActivityAction extending enum<Added, Updated, Removed>;
+
     # ToDo: Add constraints for fields
     abstract type Reservation {
         ticket_number: str;
@@ -80,22 +87,22 @@ module default {
         image_path: str;
         description: str;
         price: float32;
+        time_to_spent: duration;
         last_update: datetime;
     }
     type Activity {
         name: str;
         image_path: str;
         description: str;
-        program_detail: ActivityProgramDetails;
+        programs_Highlights: str;
+        # For the single activity, it can have multiple programs(at least one program)
+        multi programs: ActivityProgramDetails;
         last_update: datetime;
     }
     type ActivityProgramDetails {
-        program_Highlights: str;
-        multi prices: ActivityProgramPrice;
-    }
-    type ActivityProgramPrice {
         name: str;
         details: str;
+        time_to_spent: duration;
         price: float32;
     }
     type ItineraryDetails {
@@ -104,5 +111,27 @@ module default {
         # and for every day you have a day_number and array of sections
         # consisting of title and description 
         days_programs: array<tuple<day_number: int16, sections: array<tuple<title: str, description: str>>>>
+    }
+    type Admin {
+        first_name: str;
+        last_name: str;
+        email: str;
+        username: str;
+        password: str;
+        admin_role: AdminRole;
+        multi admin_activities: AdminActivity;
+        join_date: datetime;      
+    }
+    # Ex:   admin x confirmed a reservation number 12345678 on 8/24/2023
+    #       admin x edited accommodation Taghaghien Island Resort 8/20/2023
+    # For every admin activity you have only one field of these 4(reservation, place, activity, accommodation, admin)
+    type AdminActivity {
+        admin_activity_action: AdminActivityAction;
+        reservation: Reservation;
+        place: PlaceToVisit;
+        activity: Activity;
+        accommodation: Accomodation;
+        admin: Admin;
+        date: datetime;
     }
 }
