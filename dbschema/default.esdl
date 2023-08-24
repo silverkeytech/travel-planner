@@ -20,7 +20,7 @@ module default {
         transportation: Transportation;
         multi rooms: Room;
         multi activities: Activity;
-        multi places_to_visit: Place_to_visit;
+        multi places_to_visit: PlaceToVisit;
         status: ReservationStatus;
         request_date: datetime;
         itinerary_details: ItineraryDetails;
