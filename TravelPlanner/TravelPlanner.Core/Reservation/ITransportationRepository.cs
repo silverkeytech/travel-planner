@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TravelPlanner.Core.Reservation
+﻿namespace TravelPlanner.Core.Reservation
 {
     internal interface ITransportationRepository
     {
+        Task<Transportation> GetTransportationByIdAsync(Guid id);
+        Task<List<Transportation>> GetTransportationsByTypeAsync(string type);
+        Task<Guid> CreateTransportationAsync(Transportation transportation);
+        Task<bool> UpdateTransportationAsync(Guid id, Transportation transportation);
+        Task<bool> DeleteTransportationAsync(Guid id);
     }
 }

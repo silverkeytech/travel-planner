@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TravelPlanner.Core.Reservation
+﻿namespace TravelPlanner.Core.Reservation
 {
     public class Reservation
     {
@@ -19,12 +13,30 @@ namespace TravelPlanner.Core.Reservation
         public DateTime CheckIn { get; set; }
         public DateTime CheckOut { get; set; }
         public Transportation Transportation { get; set; }
-        public List<Room> Rooms { get; set; }
+        public List<ReservedRoom> ReservedRooms { get; set; }
         public List<Activity.Activity> Activities { get; set; }
         public List<Place.Place> PlacesToVisit { get; set; }
         public ReservationStatus Status { get; set; }
         public DateTime RequestDate { get; set; }
         public ItineraryDetails ItineraryDetails { get; set; }
+    }
+    public class FamilyReservation : Reservation
+    {
+        public int NumberOfAdults { get; set; }
+        public int NumberOfChildren { get; set; }
+    }
+    public class FriendsReservation : Reservation
+    {
+        public int NumberOfAdults { get; set; }
+    }
+    public class SoloReservation : Reservation
+    {
+        public bool JoinGroup { get; set; }
+    }
+    public class ReservedRoom
+    {
+        public Accommodation.Room Room { get; set; }
+        public int Count { get; set; }
     }
     public enum Languages
     {

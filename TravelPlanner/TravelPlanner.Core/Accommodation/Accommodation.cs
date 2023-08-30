@@ -18,6 +18,34 @@
         public DateTime LastUpdate { get; set; }
 
     }
+    public class AccommodationReview
+    {
+        public Guid Id { get; set; }
+        public string GuestName { get; set; }
+        public float Rate { get; set; }
+        public string comment { get; set; }
+    }
+    public class Room
+    {
+        public Guid Id { get; set; }
+        public RoomType RoomType { get; set; }
+        public int Capacity { get; set; }
+        public float PricePerNight { get; set; }
+        public string Description { get; set; }
+        public int AvailableRoomsCount { get; set; }
+    }
+    public enum RoomType
+    {
+        SingleRoom,
+        DoubleRoom,
+        TripleRoom
+    }
+    public class AccommodationFilterCriteria
+    {
+        AccommodationMode Mode;
+        // To be extended later for filtering search features
+        // For now we only focus on filtering with mode only
+    }
     public enum AccommodationMode
     {
         Family,
