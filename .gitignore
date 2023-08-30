@@ -1,0 +1,53 @@
+# .NET build output folders
+bin/
+obj/
+
+# .NET Core artifacts
+*.dll
+*.pdb
+*.exe
+
+# Visual Studio Code artifacts
+.vscode/
+.vs/
+
+# NuGet package directories
+packages/
+
+# User-specific files
+*.user
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+
+# Visual Studio project files
+#*.csproj
+*.sln
+*.csproj.user
+
+# Rider project files
+.idea/
+
+# Test Results
+[Tt]est[Rr]esult*/
+*.trx
+*.log
+
+# MSTest test Results
+[Tt]est[Rr]esults/
+[Bb]uild[Ll]og.*
+
+# Coverlet coverage report
+coverage/
+
+# Build cache folders
+.nuget/
