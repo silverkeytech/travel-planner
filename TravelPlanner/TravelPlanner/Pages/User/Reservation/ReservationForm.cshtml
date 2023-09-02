@@ -1,6 +1,19 @@
-﻿@page
+﻿@page "/Form/{TripType}"
 @model TravelPlanner.Pages.User.Reservation.ReservationFormModel
 @{
-    <h1>Form For Reseravtion</h1>
-    <p>It will be the same for the 3 views only 1 fields will differ</p>
+    ViewData["Title"] = "Reservation";
 }
+
+@if (RouteData.Values["TripType"]?.ToString() == "Friends")
+{
+    <h1>PLAN TRIP WITH YOUR FRIENDS</h1>
+}
+else if (RouteData.Values["TripType"]?.ToString() == "Family")
+{
+    <h2>This is the family page</h2>
+}
+else if (RouteData.Values["TripType"]?.ToString() == "Solo")
+{
+    <h2>This is the solo page</h2>
+}
+

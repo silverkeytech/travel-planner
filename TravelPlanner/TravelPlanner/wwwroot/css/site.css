@@ -5,6 +5,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    color: #4d3426;
 }
 main {
     flex-grow: 1;
@@ -18,4 +19,19 @@ main {
   white-space: nowrap;
   line-height: 60px;
 }
+
+#normal-btn {
+    background-color: #85865f;
+    border-color: #85865f;
+    font-weight: bold;
+    color: #212529;
+    margin-top: 15px;
+}
+
+    #normal-btn:hover {
+        box-shadow: -1px -1px 27px -11px rgba(0,0,0,0.67);
+        background-color: #6C6D46;
+        border-color: #6C6D46;
+        color: white;
+    }
   
