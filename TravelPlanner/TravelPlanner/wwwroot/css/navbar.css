@@ -1,11 +1,12 @@
-﻿.navbar {
+﻿/*.navbar {
     background-image: url('../img/navbar-background.jpg');
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
     padding: 50px 0;
 
-}
+}*/
+
 .navbar-brand {
     color: #000; 
     border-radius: 10px;
@@ -40,4 +41,26 @@
     .nav-item .nav-link{
         margin-top: 10px;
     }
+}
+.header {
+    position: relative;
+    height: 300px;
+}
+
+/* Style the background image */
+.background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+   
+    z-index: 1;
+}
+
+/* Style the navbar */
+.navbar {
+    position: relative;
+    z-index: 2;
+    padding: 20px;
+    text-align: center;
+    /* Other navbar styles */
 }
