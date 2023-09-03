@@ -34,4 +34,18 @@ main {
         border-color: #6C6D46;
         color: white;
     }
-  
+
+#cancel-btn {
+    background-color: #f5222d;
+    border-color: #f5222d;
+    font-weight: bold;
+    color: #212529;
+    margin-top: 15px;
+}
+
+    #cancel-btn:hover {
+        box-shadow: -1px -1px 27px -11px rgba(0,0,0,0.67);
+        background-color: #DC0914;
+        border-color: #DC0914;
+        color: white;
+    }
