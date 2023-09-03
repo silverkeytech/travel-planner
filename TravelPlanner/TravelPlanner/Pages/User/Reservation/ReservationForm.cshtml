@@ -24,16 +24,16 @@
         </div>
         <fieldset class="form-group my-3">
             <div class="row">
-                <legend class="col-form-label col-lg-3 pt-0">Do you want a tour guide ?</legend>
+                <span class="col-form-label col-lg-3 pt-0">Do you want a tour guide ?</span>
                 <div class="col-lg-5 row">
                     <div class="form-check col-2">
-                        <input class="form-check-input" type="radio" name="tourGuide" value="Yes" checked>
+                        <input class="form-check-input" type="radio" name="tourGuide" id="yesTourGuide"value="Yes">
                         <label class="form-check-label">
                             Yes
                         </label>
                     </div>
                     <div class="form-check col-lg-2">
-                        <input class="form-check-input" type="radio" name="tourGuide" value="No">
+                        <input class="form-check-input" type="radio" name="tourGuide" id="noTourGuide" value="No" >
                         <label class="form-check-label">
                             No
                         </label>
@@ -43,7 +43,7 @@
             <div class="form-group row">
                 <label class="col-lg-4 col-form-label" for="language" style="margin-left: 20px;">If "Yes", please choose the language desired:</label>
                 <div class="col-lg-2">
-                    <select class="form-control" id="language" name="language">
+                    <select class="form-control" id="languageDropdown" name="language">
                         <option selected hidden>Choose...</option>
                         <option value="arabic">Arabic</option>
                         <option value="english">English</option>
@@ -57,7 +57,7 @@
             <div class="col-lg-4">
                 <label class="col-form-label">Start Date</label>
                 <div class="col-5">
-                    <input type="date" class="form-control" name="start" >
+                    <input type="date" class="form-control" name="start" min="@currentDate.ToShortDateString()">
                 </div>
             </div>
             <div class="col-lg-4">
@@ -80,7 +80,7 @@
         </div>
         <div class="form-group row my-4">
             <div class="row">
-                <legend class="col-form-label col-lg-2 pt-0">Choose currency</legend>
+                <span class="col-form-label col-lg-2 pt-0">Choose currency</span>
                 <div class="col-lg-5">
                     <div class="form-check col-lg-10">
                         <input class="form-check-input" type="radio" name="currency" value="eur">
@@ -108,13 +108,290 @@
             <button type="submit" id="normal-btn" asp-page="/User/Reservation/TransportationForm" class="btn" style="margin-left: 10px;">Continue <i class='fas fa-angle-right' style="margin-left: 3px;"></i></button>
         </div>
     </form>
+    <script>
+        const yesTourGuide = document.getElementById("yesTourGuide");
+        const noTourGuide = document.getElementById("noTourGuide");
+        const languageDropdown = document.getElementById("languageDropdown");
+
+        yesTourGuide.addEventListener("change", function () {
+            if (yesTourGuide.checked) {
+                // Enable the select box
+                languageDropdown.disabled = false;
+            } else {
+                languageDropdown.disabled = true;
+                languageDropdown.selectedIndex = 0;
+            }
+        });
+        noTourGuide.addEventListener("change", function () {
+            if (noTourGuide.checked) {
+                languageDropdown.disabled = true;
+                languageDropdown.selectedIndex = 0;
+            }
+        });
+    </script>
 }
 else if (RouteData.Values["TripType"]?.ToString() == "Family")
 {
     <h1>PLAN A TRIP WITH YOUR FAMILY</h1>
+    <form>
+        <div class="form-group row my-3">
+            <label class="col-lg-2 col-form-label">Enter number of adults</label>
+            <div class="col-lg-2">
+                <input type="number" class="form-control" id="nAdults" name="nAdults" min="1" value="1">
+            </div>
+            <label class="col-lg-2 col-form-label">and number of children</label>
+            <div class="col-lg-2">
+                <input type="number" class="form-control" id="nChildren" name="nChildren" min="1" value="1">
+            </div>
+        </div>
+        <div class="form-group row my-3">
+            <label class="col-lg-3 col-form-label">Enter your nationalities</label>
+            <div class="col-lg-3">
+                <input type="text" class="form-control" placeholder="Nationalities" name="nationalities">
+            </div>
+            <small class="form-text text-muted">If there is more than one nationality, please separate them by a backslash " \ "</small>
+        </div>
+        <fieldset class="form-group my-3">
+            <div class="row">
+                <span class="col-form-label col-lg-3 pt-0">Do you want a tour guide ?</span>
+                <div class="col-lg-5 row">
+                    <div class="form-check col-2">
+                        <input class="form-check-input" type="radio" name="tourGuide" id="yesTourGuide" value="Yes">
+                        <label class="form-check-label">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="form-check col-lg-2">
+                        <input class="form-check-input" type="radio" name="tourGuide" id="noTourGuide" value="No">
+                        <label class="form-check-label">
+                            No
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-4 col-form-label" for="language" style="margin-left: 20px;">If "Yes", please choose the language desired:</label>
+                <div class="col-lg-2">
+                    <select class="form-control" id="languageDropdown" name="language">
+                        <option selected hidden>Choose...</option>
+                        <option value="arabic">Arabic</option>
+                        <option value="english">English</option>
+                        <option value="german">German</option>
+                        <option value="spanish">Spanish</option>
+                    </select>
+                </div>
+            </div>
+        </fieldset>
+        <div class="form-group row my-3">
+            <div class="col-lg-4">
+                <label class="col-form-label">Start Date</label>
+                <div class="col-5">
+                    <input type="date" class="form-control" name="start" min="@currentDate.ToShortDateString()">
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <label class="col-form-label">End Date</label>
+                <div class="col-5">
+                    <input type="date" class="form-control" name="end">
+                </div>
+            </div>
+        </div>
+        <div class="form-group row my-4">
+            <label class="col-lg-4 col-form-label" for="siwaTransportation">Choose prefered method of transportation in Siwa</label>
+            <div class="col-lg-2">
+                <select class="form-control" id="siwaTransportation" name="siwaTransportation">
+                    <option selected disabled hidden>Choose...</option>
+                    <option value="car">Car vehicle</option>
+                    <option value="tuktuk">Tuktuk</option>
+                    <option value="bicycle">Bicycle</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row my-4">
+            <div class="row">
+                <span class="col-form-label col-lg-2 pt-0">Choose currency</span>
+                <div class="col-lg-5">
+                    <div class="form-check col-lg-10">
+                        <input class="form-check-input" type="radio" name="currency" value="eur">
+                        <label class="form-check-label">
+                            Euro (EUR)
+                        </label>
+                    </div>
+                    <div class="form-check col-lg-10">
+                        <input class="form-check-input" type="radio" name="currency" value="usd">
+                        <label class="form-check-label">
+                            United States dollar (USD)
+                        </label>
+                    </div>
+                    <div class="form-check col-lg-10">
+                        <input class="form-check-input" type="radio" name="currency" value="egp">
+                        <label class="form-check-label">
+                            Egyptian Pound (EGP)
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end">
+            <button type="submit" id="cancel-btn" asp-page="/User/Index" class="btn"> Cancel <i class="fa fa-times" aria-hidden="true" style="margin-left: 3px;"></i></button>
+            <button type="submit" id="normal-btn" asp-page="/User/Reservation/TransportationForm" class="btn" style="margin-left: 10px;">Continue <i class='fas fa-angle-right' style="margin-left: 3px;"></i></button>
+        </div>
+    </form>
+    <script>
+        const yesTourGuide = document.getElementById("yesTourGuide");
+        const noTourGuide = document.getElementById("noTourGuide");
+        const languageDropdown = document.getElementById("languageDropdown");
+
+        yesTourGuide.addEventListener("change", function () {
+            if (yesTourGuide.checked) {
+                // Enable the select box
+                languageDropdown.disabled = false;
+            } else {
+                languageDropdown.disabled = true;
+                languageDropdown.selectedIndex = 0;
+            }
+        });
+        noTourGuide.addEventListener("change", function () {
+            if (noTourGuide.checked) {
+                languageDropdown.disabled = true;
+                languageDropdown.selectedIndex = 0;
+            }
+        });
+    </script>
 }
 else if (RouteData.Values["TripType"]?.ToString() == "Solo")
 {
     <h1>PLAN A SOLO TRIP</h1>
+    <form>
+        <div class="form-group row my-3">
+            <label class="col-lg-3 col-form-label">Enter your nationality</label>
+            <div class="col-lg-3">
+                <input type="text" class="form-control" placeholder="Nationality" name="nationalities">
+            </div>
+        </div>
+        <fieldset class="form-group my-3">
+            <div class="row">
+                <span class="col-form-label col-lg-3 pt-0">Do you want a tour guide ?</span>
+                <div class="col-lg-5 row">
+                    <div class="form-check col-2">
+                        <input class="form-check-input" type="radio" name="tourGuide" id="yesTourGuide" value="Yes">
+                        <label class="form-check-label">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="form-check col-lg-2">
+                        <input class="form-check-input" type="radio" name="tourGuide" id="noTourGuide" value="No">
+                        <label class="form-check-label">
+                            No
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-4 col-form-label" for="language" style="margin-left: 20px;">If "Yes", please choose the language desired:</label>
+                <div class="col-lg-2">
+                    <select class="form-control" id="languageDropdown" name="language">
+                        <option selected hidden>Choose...</option>
+                        <option value="arabic">Arabic</option>
+                        <option value="english">English</option>
+                        <option value="german">German</option>
+                        <option value="spanish">Spanish</option>
+                    </select>
+                </div>
+            </div>
+        </fieldset>
+        <div class="form-group row my-3">
+            <div class="col-lg-4">
+                <label class="col-form-label">Start Date</label>
+                <div class="col-5">
+                    <input type="date" class="form-control" name="start" min="@currentDate.ToShortDateString()">
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <label class="col-form-label">End Date</label>
+                <div class="col-5">
+                    <input type="date" class="form-control" name="end">
+                </div>
+            </div>
+        </div>
+        <div class="form-group row my-4">
+            <label class="col-lg-4 col-form-label" for="siwaTransportation">Choose prefered method of transportation in Siwa</label>
+            <div class="col-lg-2">
+                <select class="form-control" id="siwaTransportation" name="siwaTransportation">
+                    <option selected disabled hidden>Choose...</option>
+                    <option value="car">Car vehicle</option>
+                    <option value="tuktuk">Tuktuk</option>
+                    <option value="bicycle">Bicycle</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <span class="col-form-label col-lg-3 pt-0">Would you like to join a group ?</span>
+            <div class="col-lg-5 row">
+                <div class="form-check col-2">
+                    <input class="form-check-input" type="radio" name="joinGroup" value="Yes">
+                    <label class="form-check-label">
+                        Yes
+                    </label>
+                </div>
+                <div class="form-check col-lg-2">
+                    <input class="form-check-input" type="radio" name="joinGroup" value="No">
+                    <label class="form-check-label">
+                        No
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row my-4">
+            <div class="row">
+                <span class="col-form-label col-lg-2 pt-0">Choose currency</span>
+                <div class="col-lg-5">
+                    <div class="form-check col-lg-10">
+                        <input class="form-check-input" type="radio" name="currency" value="eur">
+                        <label class="form-check-label">
+                            Euro (EUR)
+                        </label>
+                    </div>
+                    <div class="form-check col-lg-10">
+                        <input class="form-check-input" type="radio" name="currency" value="usd">
+                        <label class="form-check-label">
+                            United States dollar (USD)
+                        </label>
+                    </div>
+                    <div class="form-check col-lg-10">
+                        <input class="form-check-input" type="radio" name="currency" value="egp">
+                        <label class="form-check-label">
+                            Egyptian Pound (EGP)
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end">
+            <button type="submit" id="cancel-btn" asp-page="/User/Index" class="btn"> Cancel <i class="fa fa-times" aria-hidden="true" style="margin-left: 3px;"></i></button>
+            <button type="submit" id="normal-btn" asp-page="/User/Reservation/TransportationForm" class="btn" style="margin-left: 10px;">Continue <i class='fas fa-angle-right' style="margin-left: 3px;"></i></button>
+        </div>
+    </form>
+    <script>
+        const yesTourGuide = document.getElementById("yesTourGuide");
+        const noTourGuide = document.getElementById("noTourGuide");
+        const languageDropdown = document.getElementById("languageDropdown");
+
+        yesTourGuide.addEventListener("change", function () {
+            if (yesTourGuide.checked) {
+                // Enable the select box
+                languageDropdown.disabled = false;
+            } else {
+                languageDropdown.disabled = true;
+                languageDropdown.selectedIndex = 0;
+            }
+        });
+        noTourGuide.addEventListener("change", function () {
+            if (noTourGuide.checked) {
+                languageDropdown.disabled = true;
+                languageDropdown.selectedIndex = 0;
+            }
+        });
+    </script>
 }
 
