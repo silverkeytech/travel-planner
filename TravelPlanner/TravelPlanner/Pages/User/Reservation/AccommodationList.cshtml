@@ -1,5 +1,91 @@
 ﻿@page
 @model AccommodationListModel
+
 @{
-    <h1>List of Accommodations</h1>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="~/css/User/accommodation.css" asp-append-version="true" />
+    <div class="search-bar">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" placeholder="Search for accommodation...">
+    </div>
+    <div class="accommodation-list">
+        <div class="accommodation-card">
+            <div class="card-content">
+                <div class="card-content-left">
+                    <img src="~/img/navbar-background.jpg" alt="hotel name" id="hotel-image"/>
+                </div>
+                <div class="card-content-right">
+                    <div class="card-header">
+                        <div class="hotel-title">
+                            <h4>Taghaghien Island Resort</h4>
+                        </div>
+                        <div class="stars">
+                            @for (var i = 0; i < 4; i++)
+                            {
+                                <span class="star-icon">★</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-description">
+                            <p>
+                                Situated on a secluded island on Lake Siwa, this resort offers 
+                                tranquillity and traditional Berber atmosphere. 
+                                Featuring exquisite landscapes, the Taghaghien is 13 km from the centre of Siwa town.
+                            </p>
+                        </div>
+                        <button class="details-button">Show Prices and Details</button>
+                    </div>
+                    <div class="card-footer">
+                        <div>
+                            <a href="@Url.Action("ShowOnMap","test.com")"><small>Show on the map</small></a>
+                        </div>
+                        <div class="facility-icons">
+                            @for (var i = 0; i < 7; i++)
+                            {
+                                <i class="fas fa-wifi facility-icon"></i>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 }
+@* @{
+    <link rel="stylesheet" href="~/css/User/accommodation.css" asp-append-version="true" />
+    <div class="accommodation-list">
+        @foreach (var accommodation in Model.Accommodations)
+        {
+            <div class="accommodation-card">
+                <div class="card-content">
+                    <div class="card-content-left">
+                        <img src="@accommodation.ImageUrl" alt="@accommodation.Title" class="hotel-image" />
+                    </div>
+                    <div class="card-content-right">
+                        <div class="card-header">
+                            <h3>@accommodation.Title</h3>
+                            <div class="stars">
+                                @for (var i = 0; i < accommodation.StarRating; i++)
+                                {
+                                    <span class="star-icon">★</span>
+                                }
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <p>@accommodation.Description</p>
+                            <div class="facility-icons">
+                                @foreach (var facility in accommodation.Facilities)
+                                {
+                                    <img src="@facility.IconUrl" alt="@facility.Name" class="facility-icon" />
+                                }
+                            </div>
+                            <a href="@Url.Action("ShowOnMap", new { id = accommodation.Id })">Show on the map</a>
+                            <button class="details-button">Show Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+} *@

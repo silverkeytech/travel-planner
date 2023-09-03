@@ -10,4 +10,8 @@
     <ProjectReference Include="..\TravelPlanner.Core\TravelPlanner.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\css\Admin\" />
+  </ItemGroup>
+
 </Project>
