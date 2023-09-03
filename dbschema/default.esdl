@@ -8,8 +8,6 @@ module default {
     scalar type ReservationStatus extending enum<Pending, InProgress, Confirmed>;
     scalar type Languages extending enum<Arabic, English>;
     # Should we assign different roles for admins? aka one responsible of reservations only, 
-    # one responsible of adjusting accommodations and places, and so on ???
-    scalar type AdminRole extending enum<admin>;
     scalar type AdminActivityAction extending enum<Added, Updated, Removed>;
 
     # ToDo: Add constraints for fields
@@ -22,12 +20,12 @@ module default {
         nationalities: array<str>;  
         tour_guide: bool;
         tour_guide_languages: array<Languages>;
-        check_in: datetime;
-        check_out: datetime;
+        start_date: datetime;
+        end_date: datetime;
         transportation: Transportation;
         # rooms are a multiple of tuples with room and their required count
         multi reserved_rooms: ReservedRoom;
-        multi activities: Activity;
+        multi programs: Program;
         multi places_to_visit: PlaceToVisit;
         status: ReservationStatus;
         request_date: datetime;
@@ -46,6 +44,8 @@ module default {
     type ReservedRoom {
         multi room: Room;
         count: int16;
+        check_in: datetime;
+        check_out: datetime;
     }
     # Used to generate the tour guide languages to the form
     type TourGuide {
@@ -99,16 +99,16 @@ module default {
         time_to_spend: duration;
         last_update: datetime;
     }
-    type Activity {
+    type Program {
         name: str;
         image_path: str;
         description: str;
         programs_Highlights: str;
-        # For the single activity, it can have multiple programs(at least one program)
-        multi programs: ActivityProgramDetails;
+        # For the single program, it can have multiple activities(at least one activity)
+        multi activities: ActivityDetails;
         last_update: datetime;
     }
-    type ActivityProgramDetails {
+    type ActivityDetails {
         name: str;
         details: str;
         time_to_spend: duration;
@@ -128,7 +128,6 @@ module default {
         email: str;
         username: str;
         password: str;
-        admin_role: AdminRole;
         multi admin_activities: AdminActivity;
         join_date: datetime;      
     }
@@ -140,7 +139,7 @@ module default {
         admin: Admin;
         reservation: Reservation;
         place: PlaceToVisit;
-        activity: Activity;
+        program: Program;
         accommodation: Accomodation;
         date: datetime;
     }
