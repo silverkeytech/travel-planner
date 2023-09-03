@@ -2,18 +2,119 @@
 @model TravelPlanner.Pages.User.Reservation.ReservationFormModel
 @{
     ViewData["Title"] = "Reservation";
+    DateTime currentDate = DateTime.Now;
 }
 
 @if (RouteData.Values["TripType"]?.ToString() == "Friends")
 {
-    <h1>PLAN TRIP WITH YOUR FRIENDS</h1>
+    <h1>PLAN A TRIP WITH YOUR FRIENDS</h1>
+    <form>
+        <div class="form-group row my-3">
+            <label class="col-lg-2 col-form-label">Enter number of adults</label>
+            <div class="col-lg-2">
+                <input type="number" class="form-control" id="nAdults" name="nAdults" min="2" max="20" value="2">
+            </div>
+        </div>
+        <div class="form-group row my-3">
+            <label class="col-lg-3 col-form-label">Enter your nationalities</label>
+            <div class="col-lg-3">
+                <input type="text" class="form-control" placeholder="Nationalities" name="nationalities">
+            </div>
+            <small class="form-text text-muted">If there is more than one nationality, please separate them by a backslash " \ "</small>
+        </div>
+        <fieldset class="form-group my-3">
+            <div class="row">
+                <legend class="col-form-label col-lg-3 pt-0">Do you want a tour guide ?</legend>
+                <div class="col-lg-5 row">
+                    <div class="form-check col-2">
+                        <input class="form-check-input" type="radio" name="tourGuide" value="Yes" checked>
+                        <label class="form-check-label">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="form-check col-lg-2">
+                        <input class="form-check-input" type="radio" name="tourGuide" value="No">
+                        <label class="form-check-label">
+                            No
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-4 col-form-label" for="language" style="margin-left: 20px;">If "Yes", please choose the language desired:</label>
+                <div class="col-lg-2">
+                    <select class="form-control" id="language" name="language">
+                        <option selected hidden>Choose...</option>
+                        <option value="arabic">Arabic</option>
+                        <option value="english">English</option>
+                        <option value="german">German</option>
+                        <option value="spanish">Spanish</option>
+                    </select>
+                </div>
+            </div>
+        </fieldset>
+        <div class="form-group row my-3">
+            <div class="col-lg-4">
+                <label class="col-form-label">Start Date</label>
+                <div class="col-5">
+                    <input type="date" class="form-control" name="start" >
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <label class="col-form-label">End Date</label>
+                <div class="col-5">
+                    <input type="date" class="form-control" name="end">
+                </div>
+            </div>
+        </div>
+        <div class="form-group row my-4">
+            <label class="col-lg-4 col-form-label" for="siwaTransportation">Choose prefered method of transportation in Siwa</label>
+            <div class="col-lg-2">
+                <select class="form-control" id="siwaTransportation" name="siwaTransportation">
+                    <option selected disabled hidden>Choose...</option>
+                    <option value="car">Car vehicle</option>
+                    <option value="tuktuk">Tuktuk</option>
+                    <option value="bicycle">Bicycle</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row my-4">
+            <div class="row">
+                <legend class="col-form-label col-lg-2 pt-0">Choose currency</legend>
+                <div class="col-lg-5">
+                    <div class="form-check col-lg-10">
+                        <input class="form-check-input" type="radio" name="currency" value="eur">
+                        <label class="form-check-label">
+                            Euro (EUR)
+                        </label>
+                    </div>
+                    <div class="form-check col-lg-10">
+                        <input class="form-check-input" type="radio" name="currency" value="usd">
+                        <label class="form-check-label">
+                            United States dollar (USD)
+                        </label>
+                    </div>
+                    <div class="form-check col-lg-10">
+                        <input class="form-check-input" type="radio" name="currency" value="egp">
+                        <label class="form-check-label">
+                            Egyptian Pound (EGP)
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end">
+            <button type="submit" id="cancel-btn" asp-page="/User/Index" class="btn"> Cancel <i class="fa fa-times" aria-hidden="true" style="margin-left: 3px;"></i></button>
+            <button type="submit" id="normal-btn" asp-page="/User/Reservation/TransportationForm" class="btn" style="margin-left: 10px;">Continue <i class='fas fa-angle-right' style="margin-left: 3px;"></i></button>
+        </div>
+    </form>
 }
 else if (RouteData.Values["TripType"]?.ToString() == "Family")
 {
-    <h2>This is the family page</h2>
+    <h1>PLAN A TRIP WITH YOUR FAMILY</h1>
 }
 else if (RouteData.Values["TripType"]?.ToString() == "Solo")
 {
-    <h2>This is the solo page</h2>
+    <h1>PLAN A SOLO TRIP</h1>
 }
 
