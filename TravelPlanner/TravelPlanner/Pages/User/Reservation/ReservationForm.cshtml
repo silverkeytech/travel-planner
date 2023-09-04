@@ -8,7 +8,7 @@
 @if (RouteData.Values["TripType"]?.ToString() == "Friends")
 {
     <h1>PLAN A TRIP WITH YOUR FRIENDS</h1>
-    <form>
+    <form method="post">
         <div class="form-group row my-3">
             <label class="col-lg-2 col-form-label">Enter number of adults</label>
             <div class="col-lg-2">
@@ -41,7 +41,7 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-lg-4 col-form-label" for="language" style="margin-left: 20px;">If "Yes", please choose the language desired:</label>
+                <label class="col-lg-4 col-form-label text-muted" for="language" style="margin-left: 20px;">If "Yes", please choose the language desired:</label>
                 <div class="col-lg-2">
                     <select class="form-control" id="languageDropdown" name="language">
                         <option selected hidden>Choose...</option>
@@ -105,7 +105,7 @@
         </div>
         <div class="d-flex justify-content-end">
             <button type="submit" id="cancel-btn" asp-page="/User/Index" class="btn"> Cancel <i class="fa fa-times" aria-hidden="true" style="margin-left: 3px;"></i></button>
-            <button type="submit" id="normal-btn" asp-page="/User/Reservation/TransportationForm" class="btn" style="margin-left: 10px;">Continue <i class='fas fa-angle-right' style="margin-left: 3px;"></i></button>
+            <button type="submit" id="normal-btn" asp-page="/User/Reservation/TransportationForm" asp-route-TripType="Friends" class="btn" style="margin-left: 10px;">Continue <i class='fas fa-angle-right' style="margin-left: 3px;"></i></button>
         </div>
     </form>
     <script>
@@ -133,7 +133,7 @@
 else if (RouteData.Values["TripType"]?.ToString() == "Family")
 {
     <h1>PLAN A TRIP WITH YOUR FAMILY</h1>
-    <form>
+    <form method="post">
         <div class="form-group row my-3">
             <label class="col-lg-2 col-form-label">Enter number of adults</label>
             <div class="col-lg-2">
@@ -234,7 +234,7 @@ else if (RouteData.Values["TripType"]?.ToString() == "Family")
         </div>
         <div class="d-flex justify-content-end">
             <button type="submit" id="cancel-btn" asp-page="/User/Index" class="btn"> Cancel <i class="fa fa-times" aria-hidden="true" style="margin-left: 3px;"></i></button>
-            <button type="submit" id="normal-btn" asp-page="/User/Reservation/TransportationForm" class="btn" style="margin-left: 10px;">Continue <i class='fas fa-angle-right' style="margin-left: 3px;"></i></button>
+            <button type="submit" id="normal-btn" asp-page="/User/Reservation/TransportationForm" asp-route-TripType="Family" class="btn" style="margin-left: 10px;">Continue <i class='fas fa-angle-right' style="margin-left: 3px;"></i></button>
         </div>
     </form>
     <script>
@@ -262,7 +262,7 @@ else if (RouteData.Values["TripType"]?.ToString() == "Family")
 else if (RouteData.Values["TripType"]?.ToString() == "Solo")
 {
     <h1>PLAN A SOLO TRIP</h1>
-    <form>
+    <form method="post"> 
         <div class="form-group row my-3">
             <label class="col-lg-3 col-form-label">Enter your nationality</label>
             <div class="col-lg-3">
@@ -369,7 +369,7 @@ else if (RouteData.Values["TripType"]?.ToString() == "Solo")
         </div>
         <div class="d-flex justify-content-end">
             <button type="submit" id="cancel-btn" asp-page="/User/Index" class="btn"> Cancel <i class="fa fa-times" aria-hidden="true" style="margin-left: 3px;"></i></button>
-            <button type="submit" id="normal-btn" asp-page="/User/Reservation/TransportationForm" class="btn" style="margin-left: 10px;">Continue <i class='fas fa-angle-right' style="margin-left: 3px;"></i></button>
+            <button type="submit" id="normal-btn" asp-page="/User/Reservation/TransportationForm" asp-route-TripType="Solo" class="btn" style="margin-left: 10px;">Continue <i class='fas fa-angle-right' style="margin-left: 3px;"></i></button>
         </div>
     </form>
     <script>

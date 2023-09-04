@@ -1,4 +1,172 @@
-﻿@page
+﻿@page "/Transportation/{TripType}"
 @model TravelPlanner.Pages.User.Reservation.TransportationFormModel
 @{
+    ViewData["Title"] = "Transportation";
 }
+
+@if (RouteData.Values["TripType"]?.ToString() == "Friends")
+{
+    <h1>PLAN A TRIP WITH YOUR FRIENDS</h1>
+}
+else if (RouteData.Values["TripType"]?.ToString() == "Family")
+{
+    <h1>PLAN A TRIP WITH YOUR FAMILY</h1>
+}
+else if (RouteData.Values["TripType"]?.ToString() == "Solo")
+{
+    <h1>PLAN A SOLO TRIP</h1>
+}
+
+<form method="post">
+    <div class="row form-group my-4">
+        <span class="col-form-label col-lg-5 pt-0">Do you want a transportation from/to Cairo or Marsa Matrouh ?</span>
+        <div class="col-md-5 row">
+            <div class="form-check col-lg-2">
+                <input class="form-check-input" type="radio" name="transportation" id="yesTransport" value="Yes">
+                <label class="form-check-label">
+                    Yes
+                </label>
+            </div>
+            <div class="form-check col-lg-2">
+                <input class="form-check-input" type="radio" name="transportation" id="noTransport" value="No" checked>
+                <label class="form-check-label">
+                    No
+                </label>
+            </div>
+        </div>
+    </div>
+    <div id="transportDetails" class="grid-container" style="display: none;">
+        <div class="grid-item">
+            <div class="row form-group my-3">
+                <span class="col-form-label col-lg-4 pt-0">Do you want a round trip ?</span>
+                <div class="col-lg-8 row">
+                    <div class="form-check col-2">
+                        <input class="form-check-input" type="radio" name="roundTrip" id="yesRoundTrip" value="Yes" checked>
+                        <label class="form-check-label">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="form-check col-lg-2">
+                        <input class="form-check-input" type="radio" name="roundTrip" id="noRoundTrip" value="No">
+                        <label class="form-check-label">
+                            No
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row my-4">
+                <label class="col-lg-1 col-form-label" for="fromTransportation">From</label>
+                <div class="col-lg-3">
+                    <select class="form-control" id="fromTransportation" name="fromTransportation">
+                        @* Add the name of bus stops in addition to its governorate*@
+                        <option selected disabled hidden>Choose...</option>
+                        <option value="cairo">Cairo</option>
+                        <option value="marsaMatrouh">Marsa Matrouh</option>
+                    </select>
+                </div>
+                <div class="col-lg-1"></div>
+                <label class="col-form-label px-0 mx-0" id="toRoundtripLabel" for="toTransportation" style="width:60px; display:none;">To</label>
+                <div class="col-lg-3 px-0" id="toRoundtrip" style="display:none;">
+                    <select class="form-control" id="toTransportation" name="toTransportation">
+                        @* Add the name of bus stops in addition to its governorate*@
+                        <option selected disabled hidden>Choose...</option>
+                        <option value="cairo">Cairo</option>
+                        <option value="marsaMatrouh">Marsa Matrouh</option>
+                    </select>
+                </div>
+            </div>
+            @* Added after from/to block to display price according to destination *@
+            <div class="form-group row my-4">
+                <label class="col-lg-6 col-form-label" for="transportation">Choose prefered method of transportation<p id="priceDisplay" class="col-sm-5 mb-lg-0 text-light bg-danger"></p></label> @* Try to change to htmx instead of JS *@
+                <div class="col-lg-3">
+                    <select class="form-control" id="transportation" name="transportation">
+                        <option selected disabled hidden>Choose...</option>
+                        <option value="bus" data-price="50/person">West Delta Bus </option>
+                        <option value="minibus" data-price="100/person">Private minibus </option>
+                        <option value="car" data-price="200/person">Private car </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row my-4">
+                <label class="col-lg-3 col-form-label">Enter number of seats</label>
+                <div class="col-lg-2">
+                    <input type="number" class="form-control" id="nSeats" name="nSeats" min="1" value="1">
+                </div>
+            </div>
+        </div>
+        <div class="grid-item">
+            <div class="my-4 row" style="display: flex;justify-content: center; font-weight: bold;">
+                <iframe class="col-lg-10" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3453.5261134433867!2d31.230639775230152!3d30.05045041828667!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145840c3efaaecf5%3A0x5650de26d9124697!2sGo%20Bus%20(Tahrir)%20Office!5e0!3m2!1sen!2seg!4v1693857525805!5m2!1sen!2seg"
+                        width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <label class="col-lg-1 col-form-label p-0">Check bus stations</label>
+            </div>
+        </div>
+    </div>
+    @if (RouteData.Values["TripType"]?.ToString() == "Friends")
+    {
+        <div class="d-flex my-4 justify-content-end">
+            <button type="submit" id="normal-btn" asp-page="/User/Reservation/ReservationForm" asp-route-TripType="Friends" class="btn"> <i class="fas fa-angle-left" aria-hidden="true" style="margin-right: 3px;"></i> Go Back </button>
+            <button type="submit" id="normal-btn" asp-page="/User/Reservation/AccommodationList" class="btn" style="margin-left: 10px;">Continue <i class='fas fa-angle-right' style="margin-left: 3px;"></i></button>
+        </div>
+    }
+    else if (RouteData.Values["TripType"]?.ToString() == "Family")
+    {
+        <div class="d-flex my-4 justify-content-end">
+            <button type="submit" id="normal-btn" asp-page="/User/Reservation/ReservationForm" asp-route-TripType="Family" class="btn"> <i class="fas fa-angle-left" aria-hidden="true" style="margin-right: 3px;"></i> Go Back </button>
+            <button type="submit" id="normal-btn" asp-page="/User/Reservation/AccommodationList" class="btn" style="margin-left: 10px;">Continue <i class='fas fa-angle-right' style="margin-left: 3px;"></i></button>
+        </div>
+    }
+    else if (RouteData.Values["TripType"]?.ToString() == "Solo")
+    {
+        <div class="d-flex my-4 justify-content-end">
+            <button type="submit" id="normal-btn" asp-page="/User/Reservation/ReservationForm" asp-route-TripType="Solo" class="btn"> <i class="fas fa-angle-left" aria-hidden="true" style="margin-right: 3px;"></i> Go Back </button>
+            <button type="submit" id="normal-btn" asp-page="/User/Reservation/AccommodationList" class="btn" style="margin-left: 10px;">Continue <i class='fas fa-angle-right' style="margin-left: 3px;"></i></button>
+        </div>
+    }
+
+</form>
+<script>
+    const transportationSelect = document.getElementById('transportation');
+    const priceDisplay = document.getElementById('priceDisplay');
+    transportationSelect.addEventListener('change', function () {
+        const selectedOption = transportationSelect.options[transportationSelect.selectedIndex];
+        const price = selectedOption.getAttribute('data-price');
+        priceDisplay.textContent = `Price: $${price}`;
+    });
+
+    const yesTransport = document.getElementById('yesTransport');
+    const noTransport = document.getElementById('noTransport');
+    const transportDetails = document.getElementById('transportDetails');
+    yesTransport.addEventListener('change', function () {
+        if (this.checked) {
+            transportDetails.style.display = 'grid';
+        } else {
+            transportDetails.style.display = 'none';
+        }
+    });
+    noTransport.addEventListener('change', function () {
+        if (this.checked) {
+            transportDetails.style.display = 'none';
+        }
+    });
+
+    const yesRoundTrip = document.getElementById('yesRoundTrip');
+    const noRoundTrip = document.getElementById('noRoundTrip');
+    const toRoundtrip = document.getElementById('toRoundtrip');
+    const toRoundtripLabel = document.getElementById('toRoundtripLabel');
+    noRoundTrip.addEventListener('change', function () {
+        if (this.checked) {
+            toRoundtrip.style.display = 'initial';
+            toRoundtripLabel.style.display = 'initial';
+        } else {
+            toRoundtrip.style.display = 'none';
+            toRoundtripLabel.style.display = 'none';
+        }
+    });
+    yesRoundTrip.addEventListener('change', function () {
+        if (this.checked) {
+            toRoundtrip.style.display = 'none';
+            toRoundtripLabel.style.display = 'none';
+        }
+    });
+</script>

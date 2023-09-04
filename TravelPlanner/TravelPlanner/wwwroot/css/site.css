@@ -49,3 +49,15 @@ main {
         border-color: #DC0914;
         color: white;
     }
+
+#transportDetails {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Two equal-width columns */
+    grid-gap: 50px; /* Adjust the gap between columns as needed */
+}
+
+@media (max-width: 768px) {
+    #transportDetails {
+        grid-template-columns: auto;
+    }
+}
