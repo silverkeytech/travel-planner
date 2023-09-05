@@ -1,4 +1,4 @@
-﻿@page "/Transportation/{TripType}"
+﻿@page "/{TripType}/Transportation"
 @model TravelPlanner.Pages.User.Reservation.TransportationFormModel
 @{
     ViewData["Title"] = "Transportation";
@@ -97,7 +97,7 @@ else if (RouteData.Values["TripType"]?.ToString() == "Solo")
         <div class="grid-item">
             <div class="my-4 row" style="display: flex;justify-content: center; font-weight: bold;">
                 <iframe class="col-lg-10" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3453.5261134433867!2d31.230639775230152!3d30.05045041828667!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145840c3efaaecf5%3A0x5650de26d9124697!2sGo%20Bus%20(Tahrir)%20Office!5e0!3m2!1sen!2seg!4v1693857525805!5m2!1sen!2seg"
-                        width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> @* Needs to check console warnings & check if there is a better method *@
                 <label class="col-lg-1 col-form-label p-0">Check bus stations</label>
             </div>
         </div>

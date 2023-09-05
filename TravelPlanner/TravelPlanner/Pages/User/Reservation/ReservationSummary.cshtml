@@ -1,4 +1,70 @@
-﻿@page
+﻿@page "/{TripType}/Summary"
 @model TravelPlanner.Pages.User.Reservation.ReservationSummaryModel
 @{
+    ViewData["Title"] = "Summary";
 }
+
+@if (RouteData.Values["TripType"]?.ToString() == "Friends")
+{
+    <h1>PLAN A TRIP WITH YOUR FRIENDS</h1>
+}
+else if (RouteData.Values["TripType"]?.ToString() == "Family")
+{
+    <h1>PLAN A TRIP WITH YOUR FAMILY</h1>
+}
+else if (RouteData.Values["TripType"]?.ToString() == "Solo")
+{
+    <h1>PLAN A SOLO TRIP</h1>
+}
+
+<div class="my-4 col-lg-8">
+    <p>
+        You have reserved <strong>4 days/3 nights </strong>in <em>"Qasr El Salam Hotel" </em>from
+        <strong>1 November 2023 </strong>to <strong>4 November 2023</strong>, with total of <strong>3 double rooms </strong>
+        for 6 people with total price of <strong>3500 EGP each</strong>, including all the activities.
+    </p>
+    <p>
+        You chose to get to Siwa by <strong>West Delta bus </strong> on <strong>1 November </strong>2023 for
+        300EGP each, with <strong>total of 600EGP each</strong> for <strong>round trip </strong>from <strong>Cairo</strong>.
+    </p>
+    <p>
+        You chose a <strong>car vehicle </strong>to move around in Siwa with <strong>average price of X EGP per day</strong>
+        but it mainly depends on your daily trips.
+    </p>
+    <p>
+        We will send you the detailed trip schedule shortly !
+    </p>
+</div>
+
+<form>
+    @if (RouteData.Values["TripType"]?.ToString() == "Friends")
+    {
+        <div class="d-flex mt-4 justify-content-end">
+            <button type="submit" id="normal-btn" asp-page="/User/Reservation/ActivityList" class="btn"> <i class="fas fa-angle-left" aria-hidden="true" style="margin-right: 3px;"></i> Go Back </button>
+            <button type="submit" id="normal-btn" asp-page="/User/Reservation/ContactInfo" asp-route-TripType="Friends" class="btn" style="margin-left: 10px;">Continue <i class='fas fa-angle-right' style="margin-left: 3px;"></i></button>
+        </div>
+        <div class="d-flex justify-content-end">
+            <button type="submit" id="cancel-btn" asp-page="/User/Index" class="btn"> Cancel <i class="fa fa-times" aria-hidden="true" style="margin-left: 3px;"></i></button>
+        </div>
+    }
+    else if (RouteData.Values["TripType"]?.ToString() == "Family")
+    {
+        <div class="d-flex mt-4 justify-content-end">
+            <button type="submit" id="normal-btn" asp-page="/User/Reservation/ActivityList" class="btn"> <i class="fas fa-angle-left" aria-hidden="true" style="margin-right: 3px;"></i> Go Back </button>
+            <button type="submit" id="normal-btn" asp-page="/User/Reservation/ContactInfo" asp-route-TripType="Family" class="btn" style="margin-left: 10px;">Continue <i class='fas fa-angle-right' style="margin-left: 3px;"></i></button>
+        </div>
+        <div class="d-flex justify-content-end">
+            <button type="submit" id="cancel-btn" asp-page="/User/Index" class="btn"> Cancel <i class="fa fa-times" aria-hidden="true" style="margin-left: 3px;"></i></button>
+        </div>
+    }
+    else if (RouteData.Values["TripType"]?.ToString() == "Solo")
+    {
+        <div class="d-flex mt-4 justify-content-end">
+            <button type="submit" id="normal-btn" asp-page="/User/Reservation/ActivityList" class="btn"> <i class="fas fa-angle-left" aria-hidden="true" style="margin-right: 3px;"></i> Go Back </button>
+            <button type="submit" id="normal-btn" asp-page="/User/Reservation/ContactInfo" asp-route-TripType="Solo" class="btn" style="margin-left: 10px;">Continue <i class='fas fa-angle-right' style="margin-left: 3px;"></i></button>
+        </div>
+        <div class="d-flex justify-content-end">
+            <button type="submit" id="cancel-btn" asp-page="/User/Index" class="btn"> Cancel <i class="fa fa-times" aria-hidden="true" style="margin-left: 3px;"></i></button>
+        </div>
+    }
+</form>
