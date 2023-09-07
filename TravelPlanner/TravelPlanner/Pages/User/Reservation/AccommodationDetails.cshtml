@@ -2,6 +2,11 @@
 @model AccommodationDetailsModel
 @{
     <link rel="stylesheet" href="~/css/User/accommodation-details.css" asp-append-version="true" />
+    <!-- Include the flag-icon-css stylesheet from a CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
+    
+    <!-- Include the flag icons (SVG files) from a CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/flags.css">
     <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
     <div class="container mt-4">
         <div class="row">
@@ -37,7 +42,7 @@
             </div>
         </div>
         <div class="row mt-4 mb-5">
-            <div class="col-md-6">
+            <div class="col-md-6 d-flex">
                  <div class="card shadow">
                     <div class="card-body">
                         <!-- Map -->
@@ -63,7 +68,7 @@
             </div>
             <div class="col-md-6">
                 <!-- Image Board -->
-                <div class="card fit-card">
+                <div class="card fit-card  h-100">
                     <div class="card-body">
                         <div id="carouselImages" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner">
@@ -113,16 +118,18 @@
                             <input type="date" class="form-control" id="checkOutDate">
                         </div>
                     </div>
-                    <div class="d-flex justify-content-end mt-2">
-                        <button id="showPricesButton" class="btn btn-primary">Show Prices</button>
-                    </div>
+                </div>
+                <div class="d-flex justify-content-end mt-2">
+                    <button id="showPricesButton" class="btn btn-primary">Show Prices</button>
+                </div>
+                <div class="row justify-content-center">
                     <table id="pricesTable" class="table table-striped table-responsive">
                         <thead>
                             <tr>
                                 <th>Room Type</th>
                                 <th>Guest Numbers</th>
                                 <th>Price per Night</th>
-                                <th style="width: 50px;">Counts Needed</th>
+                                <th style="width: 50px;">Select rooms</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -166,6 +173,96 @@
                             </div>
                         }
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-5">
+            <div class="card shadow p-3 mb-5 bg-white rounded">
+                <h4 class="card-title text-center">Guest Reviews</h4>
+                <div id="multiItemCarousel" class="carousel slide justify-content-center" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <!-- Item 1 -->
+                        <div class="carousel-item active p-4">
+                            <!-- Review Card 1 -->
+                            <div class="card review-card">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <!-- Icon with person -->
+                                        <div class="col-auto">
+                                            <i class="fas fa-user-circle fa-3x"></i>
+                                        </div>
+                                        <!-- Guest Name -->
+                                        <div class="col">
+                                            <h5 class="card-title">Guest Name 1</h5>
+                                            <!-- Country Name with Flag -->
+                                            <p class="card-country">
+                                                <span class="flag-icon flag-icon-us"></span> United States
+                                            </p>
+                                        </div>
+                                        <!-- Rating -->
+                                        <div class="col-auto">
+                                            <!-- Rating with red hearts -->
+                                            <div class="rating">
+                                                <span class="heart">&hearts;</span>
+                                                <span class="heart">&hearts;</span>
+                                                <span class="heart">&hearts;</span>
+                                                <!-- Add or remove hearts based on the rating -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Comment Box -->
+                                    <div class="comment-box mt-3">
+                                        <p class="card-text">Review comment aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Add more carousel items here -->
+                        <!-- Item 1 -->
+                        <div class="carousel-item p-4">
+                            <!-- Review Card 1 -->
+                            <div class="card review-card">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <!-- Icon with person -->
+                                        <div class="col-auto">
+                                            <i class="fas fa-user-circle fa-3x"></i>
+                                        </div>
+                                        <!-- Guest Name -->
+                                        <div class="col">
+                                            <h5 class="card-title">Guest Name 1</h5>
+                                            <!-- Country Name with Flag -->
+                                            <p class="card-country">
+                                                <span class="flag-icon flag-icon-us"></span> United States
+                                            </p>
+                                        </div>
+                                        <!-- Rating -->
+                                        <div class="col-auto">
+                                            <!-- Rating with red hearts -->
+                                            <div class="rating">
+                                                <span class="heart">&hearts;</span>
+                                                <span class="heart">&hearts;</span>
+                                                <span class="heart">&hearts;</span>
+                                                <!-- Add or remove hearts based on the rating -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Comment Box -->
+                                    <div class="comment-box mt-3">
+                                        <p class="card-text">Great place</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#multiItemCarousel" role="button" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#multiItemCarousel" role="button" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -219,11 +316,13 @@
             });
 
             $('.carousel-control-prev').click(function () {
-                $('#carouselImages').carousel('prev');
+                const targetCarouselId = $(this).attr('href');
+                $(targetCarouselId).carousel('prev');
             });
     
             $('.carousel-control-next').click(function () {
-                $('#carouselImages').carousel('next');
+                const targetCarouselId = $(this).attr('href');
+                $(targetCarouselId).carousel('next');
             });
         });
         function initMap() {

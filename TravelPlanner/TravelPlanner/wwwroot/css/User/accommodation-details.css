@@ -54,13 +54,49 @@
     max-width: 100%;
     width: auto;
     height: auto;
-    margin: 0 auto; /* Center align the image horizontally */
+    margin: 0 auto;
 }
 
 .star-icon {
     font-size: 20px;
     margin-right: 0.25px;
     color: #FFD700;
+}
+
+.carousel-control-prev, .carousel-control-next {
+    background-color: transparent;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    line-height: 40px;
+    font-size: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    background-color: black;
+    border-radius: 10%;
+    padding: 10px;
+}
+
+.visually-hidden {
+    color: white;
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.carousel-control-prev-icon::before, .carousel-control-next-icon::before {
+    content: none;
 }
 
 @media (max-width: 768px) {
@@ -86,6 +122,15 @@
         font-size: 12px;
     }
     .facility-name {
+        font-size: 12px;
+    }
+    .card-title {
+        font-size: 12px;
+    }
+    .card-country {
+        font-size: 8px;
+    }
+    .card-text {
         font-size: 12px;
     }
 }
