@@ -1,4 +1,76 @@
-﻿@page
+﻿@page "/{TripType}/ContactInfo"
 @model TravelPlanner.Pages.User.Reservation.ContactInfoModel
 @{
+    ViewData["Title"] = "Contact Info";
 }
+
+@if (RouteData.Values["TripType"]?.ToString() == "Friends")
+{
+    <h1>PLAN A TRIP WITH YOUR FRIENDS</h1>
+}
+else if (RouteData.Values["TripType"]?.ToString() == "Family")
+{
+    <h1>PLAN A TRIP WITH YOUR FAMILY</h1>
+}
+else if (RouteData.Values["TripType"]?.ToString() == "Solo")
+{
+    <h1>PLAN A SOLO TRIP</h1>
+}
+
+<div class="m-4">
+    <h5>Please enter your contact information</h5>
+    <form method="post">
+        <div class="mx-4">
+            <div class="row my-4">
+                <div class="form-group col-lg-4">
+                    <label for="inputEmail4" class="m-2">Enter your email </label>
+                    <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                </div>
+                <div class="form-group col-lg-4">
+                    <label for="phoneNumber" class="m-2">Enter your phone number</label>
+                    <input type="tel" class="form-control" id="phoneNumber" placeholder="Phone number">
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="form-group col-lg-4">
+                    <label for="inputEmail4" class="m-2">Enter your first name</label>
+                    <input type="email" class="form-control" id="inputEmail4" placeholder="First Name">
+                </div>
+                <div class="form-group col-lg-4">
+                    <label for="phoneNumber" class="m-2">Enter your last name</label>
+                    <input type="tel" class="form-control" id="phoneNumber" placeholder="Last Name">
+                </div>
+            </div>
+        </div>
+        @if (RouteData.Values["TripType"]?.ToString() == "Friends")
+        {
+            <div class="d-flex mt-4 justify-content-end">
+                <button type="submit" id="normal-btn" asp-page="/User/Reservation/ReservationSummary" asp-route-TripType="Friends" class="btn"> <i class="fas fa-angle-left" aria-hidden="true" style="margin-right: 3px;"></i> Go Back </button>
+                <button type="submit" id="normal-btn" asp-page="/User/Reservation/ConfirmReservation" asp-route-TripType="Friends" class="btn" style="margin-left: 10px;">Continue <i class='fas fa-angle-right' style="margin-left: 3px;"></i></button>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button type="submit" id="cancel-btn" asp-page="/User/Index" class="btn"> Cancel <i class="fa fa-times" aria-hidden="true" style="margin-left: 3px;"></i></button>
+            </div>
+        }
+        else if (RouteData.Values["TripType"]?.ToString() == "Family")
+        {
+            <div class="d-flex mt-4 justify-content-end">
+                <button type="submit" id="normal-btn" asp-page="/User/Reservation/ReservationSummary" asp-route-TripType="Family" class="btn"> <i class="fas fa-angle-left" aria-hidden="true" style="margin-right: 3px;"></i> Go Back </button>
+                <button type="submit" id="normal-btn" asp-page="/User/Reservation/ConfirmReservation" asp-route-TripType="Family" class="btn" style="margin-left: 10px;">Continue <i class='fas fa-angle-right' style="margin-left: 3px;"></i></button>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button type="submit" id="cancel-btn" asp-page="/User/Index" class="btn"> Cancel <i class="fa fa-times" aria-hidden="true" style="margin-left: 3px;"></i></button>
+            </div>
+        }
+        else if (RouteData.Values["TripType"]?.ToString() == "Solo")
+        {
+            <div class="d-flex mt-4 justify-content-end">
+                <button type="submit" id="normal-btn" asp-page="/User/Reservation/ReservationSummary" asp-route-TripType="Solo" class="btn"> <i class="fas fa-angle-left" aria-hidden="true" style="margin-right: 3px;"></i> Go Back </button>
+                <button type="submit" id="normal-btn" asp-page="/User/Reservation/ConfirmReservation" asp-route-TripType="Solo" class="btn" style="margin-left: 10px;">Continue <i class='fas fa-angle-right' style="margin-left: 3px;"></i></button>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button type="submit" id="cancel-btn" asp-page="/User/Index" class="btn"> Cancel <i class="fa fa-times" aria-hidden="true" style="margin-left: 3px;"></i></button>
+            </div>
+        }
+    </form>
+</div>
