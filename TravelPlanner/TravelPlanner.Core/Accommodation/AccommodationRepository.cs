@@ -33,7 +33,6 @@ public class AccommodationRepository : IAccommodationRepository
     //}
     public async Task<Guid> CreateAccommodationAsync(AccommodationInput accommodation)
     {
-        string formattedLastUpdate = accommodation.LastUpdate.ToString("yyyy-MM-dd");
         var query = @"
                 WITH
                     accommodation := (
@@ -49,7 +48,7 @@ public class AccommodationRepository : IAccommodationRepository
                             number_of_stars := <int16>$number_of_start,
                             accommodation_facilities := <array<AccommodationFacilities>>accommodation_facilities;
                             images_path =: <array<str>> images_path;
-                            last_update := cal::to_local_date(<str>$last_update),
+                            last_update := <datetime>$last_update,
                         }
                     )
                 SELECT accommodation.id;
@@ -68,7 +67,7 @@ public class AccommodationRepository : IAccommodationRepository
             {"number_of_stars", accommodation.NumberOfStars},
             {"accommodation_facilities", accommodation.AccommodationFacilities},
             {"images_path", accommodation.ImagesPath},
-            {"last_update", formattedLastUpdate}
+            {"last_update", accommodation.LastUpdate}
         });
 
         return result;
@@ -78,7 +77,6 @@ public class AccommodationRepository : IAccommodationRepository
     {
         try
         {
-            string formattedLastUpdate = accommodation.LastUpdate.ToString("yyyy-MM-dd");
             var query = @"
                 UPDATE Accommodation
                 FILTER .id = <uuid>$id
@@ -94,7 +92,7 @@ public class AccommodationRepository : IAccommodationRepository
                     number_of_stars := <int16>$number_of_start,
                     accommodation_facilities := <array<AccommodationFacilities>>accommodation_facilities;
                     images_path := <array<str>>$images_path;
-                    last_update := cal::to_local_date(<str>$last_update),
+                    last_update := <datetime>$last_update,
                 }
             ";
 
@@ -112,7 +110,7 @@ public class AccommodationRepository : IAccommodationRepository
                 {"number_of_stars", accommodation.NumberOfStars},
                 {"accommodation_facilities", accommodation.AccommodationFacilities},
                 {"images_path", accommodation.ImagesPath},
-                {"last_update", formattedLastUpdate}
+                {"last_update", accommodation.LastUpdate}
             });
 
             return true;
@@ -202,7 +200,7 @@ public class AccommodationRepository : IAccommodationRepository
     {
         var query = @"
             UPDATE Room
-            FILTER .id = <uuid>$roomId
+            FILTER .id = <uuid>$idd
             SET {
                 room_type := <RoomType>$room_type,
                 capacity := <int16>$capacity,
@@ -214,7 +212,7 @@ public class AccommodationRepository : IAccommodationRepository
 
         await _context.ExecuteAsync(query, new Dictionary<string, object?>
         {
-            {"roomId", roomId},
+            {"id", roomId},
             {"room_type", room.RoomType},
             {"capacity", room.Capacity},
             {"price_per_night", room.PricePerNight},

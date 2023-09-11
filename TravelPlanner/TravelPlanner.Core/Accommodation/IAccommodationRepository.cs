@@ -8,7 +8,7 @@
         Task<Guid> CreateAccommodationAsync(AccommodationInput accommodation);
         Task<bool> UpdateAccommodationAsync(Guid id, AccommodationInput accommodation);
         Task<bool> DeleteAccommodationAsync(Guid id);
-        Task CreateAccommodationReviewAsync(AccommodationReviewInput review, Guid id);
+        Task CreateAccommodationReviewAsync(AccommodationReviewInput review, Guid accommodationId);
         Task CreateAccommodationRoomsAsync(List<RoomInput> rooms, Guid accommodationId);        
         Task UpdateAccommodationRoomAsync(Guid roomId, RoomInput room);
         Task<bool> DeleteAccommodationRoomAsync(Guid roomId);
