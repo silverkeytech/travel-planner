@@ -3,6 +3,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
+builder.Services.AddEdgeDB(EdgeDBConnection.FromInstanceName("travel_planner"), config =>
+{
+    config.SchemaNamingStrategy = INamingStrategy.SnakeCaseNamingStrategy;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

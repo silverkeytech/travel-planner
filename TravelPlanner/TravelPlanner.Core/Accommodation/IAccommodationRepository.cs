@@ -2,16 +2,15 @@
 {
     internal interface IAccommodationRepository
     {
-        Task<Accommodation> GetAccommodationByIdAsync(Guid id);
-        Task<List<Accommodation>> GetAllAccommodationsAsync();
-        Task<List<Accommodation>> GetAccommodationsByFilterAsync(AccommodationFilterCriteria criteria);
-        Task<Guid> CreateAccommodationAsync(Accommodation accommodation);
-        Task<bool> UpdateAccommodationAsync(Guid id, Accommodation accommodation);
+        Task<AccommodationView> GetAccommodationByIdAsync(Guid id);
+        Task<List<AccommodationView>> GetAllAccommodationsAsync();
+        //Task<List<AccommodationView>> GetAccommodationsByFilterAsync(AccommodationFilterCriteria criteria);
+        Task<Guid> CreateAccommodationAsync(AccommodationInput accommodation);
+        Task<bool> UpdateAccommodationAsync(Guid id, AccommodationInput accommodation);
         Task<bool> DeleteAccommodationAsync(Guid id);
-        Task<Guid> CreateAccommodationReviewAsync(AccommodationReview review, Guid id, Accommodation accommodation);
-        Task<Room> GetAccommodationRoomByIdAsync(Guid id);
-        Task<Guid> CreateAccommodationRoomAsync(Room room, Guid accommodationId, Accommodation accommodation);
-        Task<bool> UpdateAccommodationRoomAsync(Guid id, Room room, Guid accommodationId, Accommodation accommodation);
-        Task<bool> DeleteAccommodationRoomAsync(Guid id, Guid accommodationId, Accommodation accommodation);
+        Task CreateAccommodationReviewAsync(AccommodationReviewInput review, Guid id);
+        Task CreateAccommodationRoomsAsync(List<RoomInput> rooms, Guid accommodationId);        
+        Task UpdateAccommodationRoomAsync(Guid roomId, RoomInput room);
+        Task<bool> DeleteAccommodationRoomAsync(Guid roomId);
     }
 }
