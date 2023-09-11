@@ -1,12 +1,23 @@
-using Microsoft.AspNetCore.Mvc;
+using EdgeDB;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace TravelPlanner.Pages.User.Reservation
+namespace TravelPlanner.Pages.User.Reservation;
+
+public class ReservationFormModel : PageModel
 {
-    public class ReservationFormModel : PageModel
+    public const string SessionKeyTourGuide = "_TourGuide";
+
+
+    private readonly EdgeDBClient _client;
+
+    public ReservationFormModel(EdgeDBClient client)
     {
-        public void OnGet()
-        {
-        }
+        _client = client;
     }
+    public void OnGet()
+    {
+
+    }
+
+
 }
