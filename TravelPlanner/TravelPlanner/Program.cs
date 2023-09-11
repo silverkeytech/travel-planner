@@ -12,9 +12,10 @@ builder.Services.AddHttpClient();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
-    //options.IdleTimeout = TimeSpan.FromMinutes(15);
-    options.Cookie.IsEssential = true;
+    options.IdleTimeout = TimeSpan.FromMinutes(15);
+    //options.Cookie.IsEssential = true;
     options.Cookie.Name = ".Reservation.Session";
+    options.Cookie.Path = "/Travel-Planner";
 });
 
 builder.Services.AddEdgeDB(EdgeDBConnection.FromInstanceName("travel_planner"), config =>
