@@ -1,10 +1,10 @@
 module default {
     scalar type TransportationType extending enum<PrivateSedan, PrivateMinibus, PublicBus>;
     scalar type RoomType extending enum<SingleRoom, DoubleRoom, TripleRoom>;
-    scalar type AccomodationMode extending enum<Friends, Family, Solo>;
+    scalar type AccommodationMode extending enum<Friends, Family, Solo>;
     
     # To be extending for more tags
-    scalar type AccomodationFacilities extending enum<Wifi, RoomService, FreeParking, DisabledGuests, Beachfront>;
+    scalar type AccommodationFacilities extending enum<Wifi, RoomService, FreeParking, DisabledGuests, Beachfront>;
     scalar type ReservationStatus extending enum<Pending, InProgress, Confirmed>;
     scalar type Languages extending enum<Arabic, English>;
     # Should we assign different roles for admins? aka one responsible of reservations only, 
@@ -63,9 +63,9 @@ module default {
         max_capacity: int16;
         price: float32;
     }
-    type Accomodation {
+    type Accommodation {
         hotel_name: str;
-        accomodation_modes: array<AccomodationMode>;
+        accommodation_modes: array<AccommodationMode>;
         location: str;
         latitude: float32; # Used to display location on map
         longitude: float32;
@@ -73,11 +73,13 @@ module default {
         long_description: str;
         profile_picture_path: str;
         number_of_stars: int16;
-        accomodation_facilities: array<AccomodationFacilities>;
-        multi reviews: AccomodationReview;
+        accommodation_facilities: array<AccommodationFacilities>;
+        multi reviews: AccommodationReview;
         images_path: array<str>;
         last_update: datetime;
-        multi rooms: Room;
+        multi rooms: Room{
+            on target delete allow;
+        };
     }
     type Room {
         room_type: RoomType;
@@ -86,10 +88,12 @@ module default {
         description: str;
         available_rooms_count: int16;
     }
-    type AccomodationReview {
+    type AccommodationReview {
         guest_name: str;
+        nationality: str;
         rate: float32;
         comment: str;
+        date: datetime;
     }
     type PlaceToVisit {
         name: str;
@@ -140,7 +144,7 @@ module default {
         reservation: Reservation;
         place: PlaceToVisit;
         program: Program;
-        accommodation: Accomodation;
+        accommodation: Accommodation;
         date: datetime;
     }
 }
