@@ -107,7 +107,7 @@ module default {
         name: str;
         image_path: str;
         description: str;
-        programs_Highlights: str;
+        program_Highlights: array<str>;
         # For the single program, it can have multiple activities(at least one activity)
         multi activities: ActivityDetails;
         last_update: datetime;
