@@ -32,7 +32,6 @@
         public string ProfilePicturePath { get; set; }
         public int NumberOfStars { get; set; }
         public List<AccommodationFacility> AccommodationFacilities { get; set; }
-        public List<AccommodationReviewInput> AccommodationReviews { get; set; }
         public List<string> ImagesPath { get; set; }
         public DateTime LastUpdate { get; set; }
 
