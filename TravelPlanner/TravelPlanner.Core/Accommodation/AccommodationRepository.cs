@@ -31,9 +31,6 @@ public class AccommodationRepository : IAccommodationRepository
     //public async Task<List<AccommodationView>> GetAccommodationsByFilterAsync(AccommodationFilterCriteria criteria)
     //{
     //}
-
-
-    // TODO: MISSING INSERTING THE ROOMS
     public async Task<Guid> CreateAccommodationAsync(AccommodationInput accommodation)
     {
         string formattedLastUpdate = accommodation.LastUpdate.ToString("yyyy-MM-dd");
