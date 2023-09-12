@@ -109,7 +109,9 @@ module default {
         description: str;
         program_Highlights: array<str>;
         # For the single program, it can have multiple activities(at least one activity)
-        multi activities: ActivityDetails;
+        multi activities: ActivityDetails{
+            on target delete allow;
+        };
         last_update: datetime;
     }
     type ActivityDetails {
