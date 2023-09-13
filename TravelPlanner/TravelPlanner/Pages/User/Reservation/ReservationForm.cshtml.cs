@@ -6,16 +6,16 @@ using TravelPlanner.Core.Reservation;
 namespace TravelPlanner.Pages.User.Reservation;
 public class ReservationFormModel : PageModel
 {
-    public const string SessionKeyNAdults = "_nAdults";
-    public const string SessionKeyNationalities = "_Nationalities";
-    public const string SessionKeyTourGuide = "_TourGuide";
-    public const string SessionKeyLanguages = "_Languages";
-    public const string SessionKeyStartDate = "_StartDate";
-    public const string SessionKeyEndDate = "_EndDate";
-    public const string SessionKeySiwaTransportation = "_SiwaTransportation";
-    public const string SessionKeyCurrency = "_Currency";
-    public const string SessionKeyNChildren = "_nChildren";
-    public const string SessionKeyJoinGroup = "_JoinGroup";
+    public string SessionKeyNAdults = "_nAdults";
+    public string SessionKeyNationalities = "_Nationalities";
+    public string SessionKeyTourGuide = "_TourGuide";
+    public string SessionKeyLanguages = "_Languages";
+    public string SessionKeyStartDate = "_StartDate";
+    public string SessionKeyEndDate = "_EndDate";
+    public string SessionKeySiwaTransportation = "_SiwaTransportation";
+    public string SessionKeyCurrency = "_Currency";
+    public string SessionKeyNChildren = "_nChildren";
+    public string SessionKeyJoinGroup = "_JoinGroup";
 
     [BindProperty]
     public TravelPlanner.Core.Reservation.Reservation? newReservation { get; set; }
@@ -42,5 +42,8 @@ public class ReservationFormModel : PageModel
         }
     }
 
+    public async Task<IActionResult> OnPostAddOrEditReservation
+    {
 
+    }
 }

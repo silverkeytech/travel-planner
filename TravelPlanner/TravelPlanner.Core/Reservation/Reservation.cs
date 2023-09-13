@@ -9,9 +9,11 @@
         public string? MobilePhone { get; set; }
         public List<string>? Nationalities { get; set; }
         public bool TourGuide { get; set; }
-        public List<Languages>? TourGuideLanguages { get; set; }
-        public DateTime CheckIn { get; set; }
-        public DateTime CheckOut { get; set; }
+        public Languages TourGuideLanguage { get; set; }
+        // public List<Languages>? TourGuideLanguages { get; set; }
+        public string? Currency { get; set; } //Create an enum for currencies available 
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
         public Transportation? Transportation { get; set; }
         public List<ReservedRoom>? ReservedRooms { get; set; }
         public List<Activity.Activity>? Activities { get; set; }

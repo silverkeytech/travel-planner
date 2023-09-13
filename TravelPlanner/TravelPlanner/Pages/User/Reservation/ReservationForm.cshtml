@@ -3,37 +3,53 @@
 @{
     ViewData["Title"] = "Reservation";
     DateTime currentDate = DateTime.Now;
+    // if (RouteData.Values["TripType"]?.ToString() == "Friends")
+    // {
+    //     TravelPlanner.Core.Reservation.FriendsReservation friendsReservation = (TravelPlanner.Core.Reservation.FriendsReservation)Model.newReservation;
+    // }
+    // else if (RouteData.Values["TripType"]?.ToString() == "Family")
+    // {
+    //     TravelPlanner.Core.Reservation.FamilyReservation familyReservation = (TravelPlanner.Core.Reservation.FamilyReservation)Model.newReservation;
+    // }
+    // else if (RouteData.Values["TripType"]?.ToString() == "Solo")
+    // {
+    //     TravelPlanner.Core.Reservation.SoloReservation soloReservation = (TravelPlanner.Core.Reservation.SoloReservation)Model.newReservation;
+            // }
 }
 
 @if (RouteData.Values["TripType"]?.ToString() == "Friends")
 {
+    TravelPlanner.Core.Reservation.FriendsReservation friendsReservation = (TravelPlanner.Core.Reservation.FriendsReservation) Model.newReservation;
+
     <h1>PLAN A TRIP WITH YOUR FRIENDS</h1>
-    <form method="post">
+    <form method="post" asp-page-handler="AddOrEditReservation">
         <div class="form-group row my-3">
             <label class="col-lg-2 col-form-label">Enter number of adults</label>
             <div class="col-lg-2">
-                <input type="number" class="form-control" id="nAdults" name="@Model.newReservation" min="2" max="20" value="2">
+                <input type="number" class="form-control" id="nAdults" name="@friendsReservation?.NumberOfAdults" min="2" max="20"
+                       value="@(HttpContext.Session.GetString(Model.SessionKeyNAdults) == null ? "2" : HttpContext.Session.GetString(Model.SessionKeyNAdults))">
             </div>
         </div>
         <div class="form-group row my-3">
             <label class="col-lg-3 col-form-label">Enter your nationalities</label>
             <div class="col-lg-3">
-                <input type="text" class="form-control" placeholder="Nationalities" name="nationalities">
+                <input type="text" class="form-control" placeholder="Nationalities" name="@friendsReservation?.Nationalities"
+                       value="@(HttpContext.Session.GetString(Model.SessionKeyNationalities) != null ? HttpContext.Session.GetString(Model.SessionKeyNationalities) : null)">
             </div>
-            <small class="form-text text-muted">If there is more than one nationality, please separate them by a backslash " \ "</small>
+            <small class="form-text text-muted">If there is more than one nationality, please separate them by a backslash "\" </small>
         </div>
         <fieldset class="form-group my-3">
             <div class="row">
                 <span class="col-form-label col-lg-3 pt-0">Do you want a tour guide ?</span>
                 <div class="col-lg-5 row">
                     <div class="form-check col-2">
-                        <input class="form-check-input" type="radio" name="tourGuide" id="yesTourGuide"value="Yes">
+                        <input class="form-check-input" type="radio" name="@friendsReservation?.TourGuide" asp-for="@(HttpContext.Session.GetString(Model.SessionKeyTourGuide))" id="yesTourGuide" value="Yes">
                         <label class="form-check-label">
                             Yes
                         </label>
                     </div>
                     <div class="form-check col-lg-2">
-                        <input class="form-check-input" type="radio" name="tourGuide" id="noTourGuide" value="No" >
+                        <input class="form-check-input" type="radio" name="@friendsReservation?.TourGuide" asp-for="@(HttpContext.Session.GetString(Model.SessionKeyTourGuide))" id="noTourGuide" value="No">
                         <label class="form-check-label">
                             No
                         </label>
@@ -43,7 +59,7 @@
             <div class="form-group row">
                 <label class="col-lg-4 col-form-label text-muted" for="language" style="margin-left: 20px;">If "Yes", please choose the language desired:</label>
                 <div class="col-lg-2">
-                    <select class="form-control" id="languageDropdown" name="language">
+                    <select class="form-control" id="languageDropdown" name="@friendsReservation?.TourGuideLanguage">
                         <option selected hidden>Choose...</option>
                         <option value="arabic">Arabic</option>
                         <option value="english">English</option>
@@ -57,20 +73,20 @@
             <div class="col-lg-4">
                 <label class="col-form-label">Start Date</label>
                 <div class="col-5">
-                    <input type="date" class="form-control" name="start" min="@currentDate.ToShortDateString()">
+                    <input type="date" class="form-control" name="@friendsReservation?.StartDate" value="@(HttpContext.Session.GetString(Model.SessionKeyStartDate))" min="@currentDate.ToShortDateString()">
                 </div>
             </div>
             <div class="col-lg-4">
                 <label class="col-form-label">End Date</label>
                 <div class="col-5">
-                    <input type="date" class="form-control" name="end">
+                    <input type="date" class="form-control" name="@friendsReservation?.EndDate" value="@(HttpContext.Session.GetString(Model.SessionKeyEndDate))">
                 </div>
             </div>
         </div>
         <div class="form-group row my-4">
             <label class="col-lg-4 col-form-label" for="siwaTransportation">Choose prefered method of transportation in Siwa</label>
             <div class="col-lg-2">
-                <select class="form-control" id="siwaTransportation" name="siwaTransportation">
+                <select class="form-control" id="siwaTransportation" name="@friendsReservation?.Transportation">
                     <option selected disabled hidden>Choose...</option>
                     <option value="car">Car vehicle</option>
                     <option value="tuktuk">Tuktuk</option>
@@ -83,19 +99,19 @@
                 <span class="col-form-label col-lg-2 pt-0">Choose currency</span>
                 <div class="col-lg-5">
                     <div class="form-check col-lg-10">
-                        <input class="form-check-input" type="radio" name="currency" value="eur">
+                        <input class="form-check-input" type="radio" name="@friendsReservation?.Currency" asp-for="@HttpContext.Session.GetString(Model.SessionKeyCurrency)" value="eur">
                         <label class="form-check-label">
                             Euro (EUR)
                         </label>
                     </div>
                     <div class="form-check col-lg-10">
-                        <input class="form-check-input" type="radio" name="currency" value="usd">
+                        <input class="form-check-input" type="radio" name="@friendsReservation?.Currency" asp-for="@HttpContext.Session.GetString(Model.SessionKeyCurrency)" value="usd">
                         <label class="form-check-label">
                             United States dollar (USD)
                         </label>
                     </div>
                     <div class="form-check col-lg-10">
-                        <input class="form-check-input" type="radio" name="currency" value="egp">
+                        <input class="form-check-input" type="radio" name="@friendsReservation?.Currency" asp-for="@HttpContext.Session.GetString(Model.SessionKeyCurrency)" value="egp">
                         <label class="form-check-label">
                             Egyptian Pound (EGP)
                         </label>
@@ -132,6 +148,7 @@
 }
 else if (RouteData.Values["TripType"]?.ToString() == "Family")
 {
+    TravelPlanner.Core.Reservation.FamilyReservation familyReservation = (TravelPlanner.Core.Reservation.FamilyReservation) Model.newReservation;
     <h1>PLAN A TRIP WITH YOUR FAMILY</h1>
     <form method="post">
         <div class="form-group row my-3">
@@ -261,8 +278,9 @@ else if (RouteData.Values["TripType"]?.ToString() == "Family")
 }
 else if (RouteData.Values["TripType"]?.ToString() == "Solo")
 {
+    TravelPlanner.Core.Reservation.SoloReservation soloReservation = (TravelPlanner.Core.Reservation.SoloReservation) Model.newReservation;
     <h1>PLAN A SOLO TRIP</h1>
-    <form method="post"> 
+    <form method="post">
         <div class="form-group row my-3">
             <label class="col-lg-3 col-form-label">Enter your nationality</label>
             <div class="col-lg-3">
