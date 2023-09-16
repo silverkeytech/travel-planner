@@ -1,15 +1,50 @@
 module default {
-    scalar type TransportationType extending enum<PrivateSedan, PrivateMinibus, PublicBus>;
-    scalar type RoomType extending enum<SingleRoom, DoubleRoom, TripleRoom>;
-    scalar type AccommodationMode extending enum<Friends, Family, Solo>;
+    scalar type TransportationType extending enum<
+        PrivateSedan,
+        PrivateMinibus,
+        PublicBus
+    >;
     
-    # To be extending for more tags
-    scalar type AccommodationFacilities extending enum<Wifi, RoomService, FreeParking, DisabledGuests, Beachfront>;
-    scalar type ReservationStatus extending enum<Pending, InProgress, Confirmed>;
-    scalar type Languages extending enum<Arabic, English>;
-    # Should we assign different roles for admins? aka one responsible of reservations only, 
-    scalar type AdminActivityAction extending enum<Added, Updated, Removed>;
-
+    scalar type RoomType extending enum<
+        SingleRoom,
+        DoubleRoom,
+        TripleRoom
+    >;
+    
+    scalar type AccommodationMode extending enum<
+        Friends,
+        Family,
+        Solo
+    >;
+    
+    scalar type AccommodationFacilities extending enum<
+        OutdoorSwimmingPool,
+        FreeParking,
+        Restaurant,
+        SpaAndWellnessCentre,
+        PetsAllowed,
+        WIFI,
+        RoomService,
+        BeachFront,
+        Breakfast
+    >;
+    
+    scalar type ReservationStatus extending enum<
+        Pending,
+        InProgress,
+        Confirmed
+    >;
+    
+    scalar type Languages extending enum<
+        Arabic,
+        English
+    >;
+    
+    scalar type AdminActivityAction extending enum<
+        Added,
+        Updated,
+        Removed
+    >;
     # ToDo: Add constraints for fields
     abstract type Reservation {
         ticket_number: str;
@@ -42,7 +77,7 @@ module default {
         join_group: bool;
     }
     type ReservedRoom {
-        multi room: Room;
+        room: Room;
         count: int16;
         check_in: datetime;
         check_out: datetime;
@@ -105,7 +140,8 @@ module default {
     }
     type Program {
         name: str;
-        image_path: str;
+        profile_picture_path: str;
+        images_path: array<str>;
         description: str;
         program_Highlights: array<str>;
         # For the single program, it can have multiple activities(at least one activity)
@@ -116,7 +152,7 @@ module default {
     }
     type ActivityDetails {
         name: str;
-        details: str;
+        details: array<str>;
         time_to_spend: duration;
         price: float32;
     }
