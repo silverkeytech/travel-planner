@@ -1,3 +1,8 @@
+using EdgeDB;
+using TravelPlanner.Core.Accommodation;
+using TravelPlanner.Core.Place;
+using TravelPlanner.Core.Program;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,7 +12,9 @@ builder.Services.AddEdgeDB(EdgeDBConnection.FromInstanceName("travel_planner"), 
 {
     config.SchemaNamingStrategy = INamingStrategy.SnakeCaseNamingStrategy;
 });
-
+builder.Services.AddScoped<IAccommodationRepository, AccommodationRepository>();
+builder.Services.AddScoped<IPlaceRepository, PlaceRepository>();
+builder.Services.AddScoped<IProgramRepository, ProgramRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
