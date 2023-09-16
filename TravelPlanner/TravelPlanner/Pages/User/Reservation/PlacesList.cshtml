@@ -1,5 +1,51 @@
 ﻿@page
 @model PlacesListModel
 @{
-    <h1>List of Places</h1>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="~/css/User/place.css" asp-append-version="true" />
+    <div class="flex-container" style="display: flex; justify-content: space-between; align-items: center;">
+        <h2>Choose Places you want to visit</h2>
+        <div class="search-bar">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" placeholder="Search for a place...">
+        </div>
+    </div>
+    <div class="row">
+        @foreach (var place in Model.PlaceList)
+        {
+            <div class="col-12 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-4 d-flex justify-content-center">
+                                <img src="@place.ImagePath" alt="@place.Name" class="img-fluid rounded" id="place-image">
+                            </div>
+                            <div class="col-sm-8">
+                                <h4 class="card-title">@place.Name</h4>
+                                <div class="card border-dark mb-3">
+                                    <div class="card-body text-dark">
+                                        <p class="card-text">@place.Description</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <p><b>Duration:</b> @place.TimeToSpend</p>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p><b>Price:</b> $@place.Price</p>
+                                    </div>
+                                    <div class="col d-flex justify-content-end">
+                                        <div>
+                                            <input type="checkbox" id="chooseProgram" name="chooseProgram">
+                                            <label for="chooseProgram">Choose</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 }
