@@ -1,91 +1,85 @@
 ﻿@page
+@using TravelPlanner.Core.Accommodation
 @model AccommodationListModel
 
 @{
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="~/css/User/accommodation.css" asp-append-version="true" />
-    <div class="search-bar">
-        <i class="fas fa-search search-icon"></i>
-        <input type="text" placeholder="Search for accommodation...">
-    </div>
-    <div class="accommodation-list">
-        <div class="accommodation-card">
-            <div class="card-content">
-                <div class="card-content-left">
-                    <img src="~/img/navbar-background.jpg" alt="hotel name" id="hotel-image"/>
-                </div>
-                <div class="card-content-right">
-                    <div class="card-header">
-                        <div class="hotel-title">
-                            <h4>Taghaghien Island Resort</h4>
-                        </div>
-                        <div class="stars">
-                            @for (var i = 0; i < 4; i++)
-                            {
-                                <span class="star-icon">★</span>
-                            }
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-description">
-                            <p>
-                                Situated on a secluded island on Lake Siwa, this resort offers 
-                                tranquillity and traditional Berber atmosphere. 
-                                Featuring exquisite landscapes, the Taghaghien is 13 km from the centre of Siwa town.
-                            </p>
-                        </div>
-                        <button class="details-button">Show Prices and Details</button>
-                    </div>
-                    <div class="card-footer">
-                        <div>
-                            <a href="@Url.Action("ShowOnMap","test.com")"><small>Show on the map</small></a>
-                        </div>
-                        <div class="facility-icons">
-                            @for (var i = 0; i < 7; i++)
-                            {
-                                <i class="fas fa-wifi facility-icon"></i>
-                            }
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="flex-container" style="display: flex; justify-content: space-between; align-items: center;">
+        <h2>Choose Your Accommodations</h2>
+        <div class="search-bar">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" placeholder="Search for accommodation...">
         </div>
     </div>
-}
-@* @{
-    <link rel="stylesheet" href="~/css/User/accommodation.css" asp-append-version="true" />
     <div class="accommodation-list">
-        @foreach (var accommodation in Model.Accommodations)
+        @foreach (var accommodation in Model.AccommodationList)
         {
             <div class="accommodation-card">
                 <div class="card-content">
                     <div class="card-content-left">
-                        <img src="@accommodation.ImageUrl" alt="@accommodation.Title" class="hotel-image" />
+                        <img src="~/img/navbar-background.jpg" alt="hotel name" id="hotel-image"/>
                     </div>
                     <div class="card-content-right">
                         <div class="card-header">
-                            <h3>@accommodation.Title</h3>
+                            <div class="hotel-title">
+                                <h4>@accommodation.HotelName</h4>
+                            </div>
                             <div class="stars">
-                                @for (var i = 0; i < accommodation.StarRating; i++)
+                                @for (var i = 0; i < accommodation.NumberOfStars; i++)
                                 {
                                     <span class="star-icon">★</span>
                                 }
                             </div>
                         </div>
                         <div class="card-body">
-                            <p>@accommodation.Description</p>
+                            <div class="card-description">
+                                <p>@accommodation.ShortDescription</p>
+                            </div>
+                            <button class="details-button">Show Prices and Details</button>
+                        </div>
+                        <div class="card-footer">
+                            <div>
+                                <a><small>Show on the map</small></a>
+                            </div>
                             <div class="facility-icons">
-                                @foreach (var facility in accommodation.Facilities)
+                                @foreach (var facility in accommodation.AccommodationFacilities)
                                 {
-                                    <img src="@facility.IconUrl" alt="@facility.Name" class="facility-icon" />
+                                    <i class="facility-icon">@GetFacilityIcon(facility)</i>
                                 }
                             </div>
-                            <a href="@Url.Action("ShowOnMap", new { id = accommodation.Id })">Show on the map</a>
-                            <button class="details-button">Show Details</button>
                         </div>
                     </div>
                 </div>
             </div>
         }
     </div>
-} *@
+}
+@functions {
+    string GetFacilityIcon(AccommodationFacility facility)
+    {
+        switch (facility)
+        {
+            case AccommodationFacility.OutdoorSwimmingPool:
+                return "<i class='fas fa-swimming-pool'></i>";
+            case AccommodationFacility.FreeParking:
+                return "<i class='fas fa-parking'></i>";
+            case AccommodationFacility.Restaurant:
+                return "<i class='fas fa-utensils'></i>";
+            case AccommodationFacility.SpaAndWellnessCentre:
+                return "<i class='fas fa-spa'></i>";
+            case AccommodationFacility.PetsAllowed:
+                return "<i class='fas fa-dog'></i>";
+            case AccommodationFacility.WIFI:
+                return "<i class='fas fa-wifi'></i>";
+            case AccommodationFacility.RoomService:
+                return "<i class='fas fa-concierge-bell'></i>";
+            case AccommodationFacility.BeachFront:
+                return "<i class='fas fa-umbrella-beach'></i>";
+            case AccommodationFacility.Breakfast:
+                return "<i class='fas fa-coffee'></i>";
+            default:
+                return "";
+        }
+    }
+}
