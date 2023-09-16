@@ -1,6 +1,6 @@
 ﻿namespace TravelPlanner.Core.Place
 {
-    internal interface IPlaceRepository
+    public interface IPlaceRepository
     {
         Task<PlaceView> GetPlaceByIdAsync(Guid id);
         Task<List<PlaceView>> GetAllPlacesAsync();

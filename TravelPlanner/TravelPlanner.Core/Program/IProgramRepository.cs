@@ -1,6 +1,6 @@
 namespace TravelPlanner.Core.Program
 {
-    internal interface IProgramRepository
+    public interface IProgramRepository
     {
         Task<ProgramView> GetProgramByIdAsync(Guid id);
         Task<List<ProgramView>> GetAllProgramsAsync();
