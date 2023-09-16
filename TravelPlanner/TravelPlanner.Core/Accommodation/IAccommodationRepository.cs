@@ -1,6 +1,6 @@
 ﻿namespace TravelPlanner.Core.Accommodation
 {
-    internal interface IAccommodationRepository
+    public interface IAccommodationRepository
     {
         Task<AccommodationView> GetAccommodationByIdAsync(Guid id);
         Task<List<AccommodationView>> GetAllAccommodationsAsync();
