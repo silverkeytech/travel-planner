@@ -95,5 +95,14 @@
     {
         // TODO:
         // Add accommodation facilities
+        OutdoorSwimmingPool,
+        FreeParking,
+        Restaurant,
+        SpaAndWellnessCentre,
+        PetsAllowed,
+        WIFI,
+        RoomService,
+        BeachFront,
+        Breakfast
     }
 }
