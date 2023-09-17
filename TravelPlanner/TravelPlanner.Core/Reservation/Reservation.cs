@@ -7,7 +7,7 @@
         public string? Name { get; set; }
         public string? Email { get; set; }
         public string? MobilePhone { get; set; }
-        public List<string>? Nationalities { get; set; }
+        public string? Nationalities { get; set; }
         public bool TourGuide { get; set; }
         public Languages TourGuideLanguage { get; set; }
         // public List<Languages>? TourGuideLanguages { get; set; }
@@ -51,4 +51,5 @@
         InProgress,
         Confirmed
     }
+
 }

@@ -4,18 +4,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddAntiforgery();
-builder.Services.AddHttpContextAccessor();
-builder.Services.AddHttpClient();
+//builder.Services.AddHttpContextAccessor();
+//builder.Services.AddHttpClient();
 
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(15);
-    //options.Cookie.IsEssential = true;
-    options.Cookie.Name = ".Reservation.Session";
-    options.Cookie.Path = "/Travel-Planner";
+    options.Cookie.Name = ".TravelPlanner.Session";
 });
 
 builder.Services.AddEdgeDB(EdgeDBConnection.FromInstanceName("travel_planner"), config =>
