@@ -7,14 +7,15 @@
         public string? Name { get; set; }
         public string? Email { get; set; }
         public string? MobilePhone { get; set; }
-        public string? Nationalities { get; set; }
+        public string Nationalities { get; set; }
         public bool TourGuide { get; set; }
         public Languages TourGuideLanguage { get; set; }
         // public List<Languages>? TourGuideLanguages { get; set; }
-        public string? Currency { get; set; } //Create an enum for currencies available 
+        public string Currency { get; set; } //Create an enum for currencies available 
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public Transportation? Transportation { get; set; }
+        public SiwaTransportation SiwaTransportation { get; set; }
         public List<ReservedRoom>? ReservedRooms { get; set; }
         public List<Activity.Activity>? Activities { get; set; }
         public List<Place.Place>? PlacesToVisit { get; set; }
@@ -24,12 +25,12 @@
     }
     public class FamilyReservation : Reservation
     {
-        public int NumberOfAdults { get; set; }
-        public int NumberOfChildren { get; set; }
+        public int NumberOfAdults { get; set; } = 1;
+        public int NumberOfChildren { get; set; } = 1;
     }
     public class FriendsReservation : Reservation
     {
-        public int NumberOfAdults { get; set; }
+        public int NumberOfAdults { get; set; } = 2;
     }
     public class SoloReservation : Reservation
     {
@@ -43,7 +44,10 @@
     public enum Languages
     {
         Arabic,
-        English
+        English,
+        German,
+        Spanish,
+        None
     }
     public enum ReservationStatus
     {

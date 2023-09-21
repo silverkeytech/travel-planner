@@ -6,10 +6,19 @@
         public int MaxCapacity { get; set; }
         public float Price { get; set; }
     }
+
     public enum TransporationType
     {
-        PrivateSedan, 
-        PrivateMinibus, 
-        PublicBus
+        PrivateSedan,
+        PrivateMinibus,
+        PublicBus,
+        None
+    }
+
+    public enum SiwaTransportation
+    {
+        CarVechile,
+        Tuktuk,
+        Bicycle
     }
 }
