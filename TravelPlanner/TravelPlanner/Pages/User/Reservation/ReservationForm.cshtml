@@ -1,41 +1,25 @@
 ﻿@page "/{TripType}/Form"
 @model TravelPlanner.Pages.User.Reservation.ReservationFormModel
-@using TravelPlanner.Core.Reservation
-@using Microsoft.AspNetCore.Http
 @{
     ViewData["Title"] = "Reservation";
-    DateTime currentDate = DateTime.Now;
-    // if (RouteData.Values["TripType"]?.ToString() == "Friends")
-    // {
-    //     TravelPlanner.Core.Reservation.FriendsReservation friendsReservation = (TravelPlanner.Core.Reservation.FriendsReservation)Model.newReservation;
-    // }
-    // else if (RouteData.Values["TripType"]?.ToString() == "Family")
-    // {
-    //     TravelPlanner.Core.Reservation.FamilyReservation familyReservation = (TravelPlanner.Core.Reservation.FamilyReservation)Model.newReservation;
-    // }
-    // else if (RouteData.Values["TripType"]?.ToString() == "Solo")
-    // {
-    //     TravelPlanner.Core.Reservation.SoloReservation soloReservation = (TravelPlanner.Core.Reservation.SoloReservation)Model.newReservation;
-            // }
 }
 
 @if (RouteData.Values["TripType"]?.ToString() == "Friends")
 {
-
     <h1>PLAN A TRIP WITH YOUR FRIENDS</h1>
-    <form method="post">
+    <form method="post" asp-page-handler="Submit">
         <div class="form-group row my-3">
             <label class="col-lg-2 col-form-label">Enter number of adults</label>
             <div class="col-lg-2">
                 <input type="number" class="form-control" name="NumberOfAdults" min="2" max="15" placeholder="2"
-                       value="@HttpContext.Session.GetInt32("_nAdults")" />
+                       value="@(Model.friendsReservation?.NumberOfAdults ?? null)" />
             </div>
         </div>
         <div class="form-group row my-3">
             <label class="col-lg-3 col-form-label">Enter your nationalities</label>
             <div class="col-lg-3">
                 <input type="text" class="form-control" placeholder="Nationalities" name="Nationalities"
-                       value="@HttpContext.Session.GetString("_Nationalities")">
+                       value="@(Model.friendsReservation?.Nationalities ?? null)">
             </div>
             <small class="form-text text-muted">If there is more than one nationality, please separate them by a backslash "\" </small>
         </div>
@@ -44,13 +28,13 @@
                 <span class="col-form-label col-lg-3 pt-0">Do you want a tour guide ?</span>
                 <div class="col-lg-5 row">
                     <div class="form-check col-2">
-                        <input class="form-check-input" type="radio" name="TourGuide" id="yesTourGuide" value="True" @(HttpContext.Session.GetString("_TourGuide") == "True" ? "checked" : "") />
+                        <input class="form-check-input" type="radio" name="TourGuide" id="yesTourGuide" value="True" @(Model.friendsReservation?.TourGuide.ToString() == "True" ? "checked" : "") />
                         <label class="form-check-label">
                             Yes
                         </label>
                     </div>
                     <div class="form-check col-lg-2">
-                        <input class="form-check-input" type="radio" name="TourGuide" id="noTourGuide" value="False" @(HttpContext.Session.GetString("_TourGuide") == "False" ? "checked" : "") />
+                        <input class="form-check-input" type="radio" name="TourGuide" id="noTourGuide" value="False" @(Model.friendsReservation?.TourGuide.ToString() == "False" ? "checked" : "") />
                         <label class="form-check-label">
                             No
                         </label>
@@ -69,10 +53,10 @@
                     } *@
                         @* opt-out character ("!") *@
                         <option disabled selected value="">Choose...</option>
-                        <!option value="Arabic" @(HttpContext.Session.GetString("_TourGuideLanguage") == "Arabic" ? "selected" : "")>Arabic</!option>
-                        <!option value="English" @(HttpContext.Session.GetString("_TourGuideLanguage") == "English" ? "selected" : "")>English</!option>
-                        <!option value="German" @(HttpContext.Session.GetString("_TourGuideLanguage") == "German" ? "selected" : "")>German</!option>
-                        <!option value="Spanish" @(HttpContext.Session.GetString("_TourGuideLanguage") == "Spanish" ? "selected" : "")>Spanish</!option>
+                        <!option value="Arabic" @(Model.friendsReservation?.TourGuideLanguage.ToString() == "Arabic" ? "selected" : "")>Arabic</!option>
+                        <!option value="English" @(Model.friendsReservation?.TourGuideLanguage.ToString() == "English" ? "selected" : "")>English</!option>
+                        <!option value="German" @(Model.friendsReservation?.TourGuideLanguage.ToString() == "German" ? "selected" : "")>German</!option>
+                        <!option value="Spanish" @(Model.friendsReservation?.TourGuideLanguage.ToString() == "Spanish" ? "selected" : "")>Spanish</!option>
                     </select>
                 </div>
             </div>
@@ -82,7 +66,7 @@
                 <label class="col-form-label">Start Date</label>
                 <div class="col-5">
                     <input type="date" class="form-control" name="StartDate"
-                           value="@(!string.IsNullOrEmpty(HttpContext.Session.GetString("_StartDate")) ? DateTime.Parse(HttpContext.Session.GetString("_StartDate")).ToString("yyyy-MM-dd") : string.Empty)"
+                           value="@(!string.IsNullOrEmpty(Model.friendsReservation?.StartDate.ToString()) ? DateTime.Parse(Model.friendsReservation?.StartDate.ToString()).ToString("yyyy-MM-dd") : string.Empty)"
                            min="@DateTime.Now.ToString("yyyy-MM-dd")" />
                 </div>
             </div>
@@ -91,7 +75,7 @@
                 <div class="col-5">
                     @* Edit to make dates available are after the start date *@
                     <input type="date" class="form-control" name="EndDate"
-                           value="@(!string.IsNullOrEmpty(HttpContext.Session.GetString("_EndDate")) ? DateTime.Parse(HttpContext.Session.GetString("_EndDate")).ToString("yyyy-MM-dd") : string.Empty)"
+                           value="@(!string.IsNullOrEmpty(Model.friendsReservation?.EndDate.ToString()) ? DateTime.Parse(Model.friendsReservation?.EndDate.ToString()).ToString("yyyy-MM-dd") : string.Empty)"
                            min="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")" />
                 </div>
             </div>
@@ -101,9 +85,9 @@
             <div class="col-lg-2">
                 <select class="form-control" id="siwaTransportation" name="siwaTransportation">
                     <option selected disabled value="">Choose...</option>
-                    <!option value="CarVechile" @(HttpContext.Session.GetString("_SiwaTransportation") == "CarVechile" ? "selected" : "")>Car vehicle</!option>
-                    <!option value="Tuktuk" @(HttpContext.Session.GetString("_SiwaTransportation") == "Tuktuk" ? "selected" : "")>Tuktuk</!option>
-                    <!option value="Bicycle" @(HttpContext.Session.GetString("_SiwaTransportation") == "Bicycle" ? "selected" : "")>Bicycle</!option>
+                    <!option value="CarVechile" @(Model.friendsReservation?.SiwaTransportation.ToString() == "CarVechile" ? "selected" : "")>Car vehicle</!option>
+                    <!option value="Tuktuk" @(Model.friendsReservation?.SiwaTransportation.ToString() == "Tuktuk" ? "selected" : "")>Tuktuk</!option>
+                    <!option value="Bicycle" @(Model.friendsReservation?.SiwaTransportation.ToString() == "Bicycle" ? "selected" : "")>Bicycle</!option>
                 </select>
             </div>
         </div>
@@ -112,19 +96,19 @@
                 <span class="col-form-label col-lg-2 pt-0">Choose currency</span>
                 <div class="col-lg-5">
                     <div class="form-check col-lg-10">
-                        <input class="form-check-input" type="radio" name="Currency" value="eur" @(HttpContext.Session.GetString("_Currency") == "eur" ? "checked" : "")>
+                        <input class="form-check-input" type="radio" name="Currency" value="eur" @(Model.friendsReservation?.Currency == "eur" ? "checked" : "")>
                         <label class="form-check-label">
                             Euro (EUR)
                         </label>
                     </div>
                     <div class="form-check col-lg-10">
-                        <input class="form-check-input" type="radio" name="Currency" value="usd" @(HttpContext.Session.GetString("_Currency") == "usd" ? "checked" : "")>
+                        <input class="form-check-input" type="radio" name="Currency" value="usd" @(Model.friendsReservation?.Currency == "usd" ? "checked" : "")>
                         <label class="form-check-label">
                             United States dollar (USD)
                         </label>
                     </div>
                     <div class="form-check col-lg-10">
-                        <input class="form-check-input" type="radio" name="Currency" value="egp" @(HttpContext.Session.GetString("_Currency") == "egp" ? "checked" : "")>
+                        <input class="form-check-input" type="radio" name="Currency" value="egp" @(Model.friendsReservation?.Currency == "egp" ? "checked" : "")>
                         <label class="form-check-label">
                             Egyptian Pound (EGP)
                         </label>
@@ -136,14 +120,9 @@
             </div>
         </div>
     </form>
-    @*  <form method="post">
+    <form method="post" asp-page-handler="Cancel">
         <div class="d-flex justify-content-end">
-            <button type="submit" id="normal-btn" class="btn" style="margin-left: 10px;">Continue<i class='fas fa-angle-right' style="margin-left: 3px;"></i></button>
-        </div>
-    </form> *@
-    <form method="get">
-        <div class="d-flex justify-content-end">
-            <button type="submit" id="cancel-btn" asp-page="/User/Index" class="btn"> Cancel <i class="fa fa-times" aria-hidden="true" style="margin-left: 3px;"></i></button>
+            <button type="submit" id="cancel-btn" class="btn" style="margin-top:0px;"> Cancel <i class="fa fa-times" aria-hidden="true" style="margin-left: 3px;"></i></button>
         </div>
     </form>
     <script>
@@ -173,27 +152,28 @@
         // Call the function when the DOM is ready
         document.addEventListener("DOMContentLoaded", initializeTourGuideToggle);
     </script>
-
 }
-@* else if (RouteData.Values["TripType"]?.ToString() == "Family")
+else if (RouteData.Values["TripType"]?.ToString() == "Family")
 {
-    TravelPlanner.Core.Reservation.FamilyReservation familyReservation = (TravelPlanner.Core.Reservation.FamilyReservation) Model.newReservation;
     <h1>PLAN A TRIP WITH YOUR FAMILY</h1>
-    <form method="post">
+    <form method="post" asp-page-handler="Submit">
         <div class="form-group row my-3">
             <label class="col-lg-2 col-form-label">Enter number of adults</label>
             <div class="col-lg-2">
-                <input type="number" class="form-control" id="nAdults" name="nAdults" min="1" value="1">
+                <input type="number" class="form-control" id="nAdults" name="FamilyAdults" min="1" placeholder="1"
+                       value="@(Model.FamilyReservation?.NumberOfAdults ?? null)" />
             </div>
             <label class="col-lg-2 col-form-label">and number of children</label>
             <div class="col-lg-2">
-                <input type="number" class="form-control" id="nChildren" name="nChildren" min="1" value="1">
+                <input type="number" class="form-control" id="nChildren" name="FamilyChildren" min="1" placeholder="1"
+                       value="@(Model.FamilyReservation?.NumberOfChildren ?? null)" />
             </div>
         </div>
         <div class="form-group row my-3">
             <label class="col-lg-3 col-form-label">Enter your nationalities</label>
             <div class="col-lg-3">
-                <input type="text" class="form-control" placeholder="Nationalities" name="nationalities">
+                <input type="text" class="form-control" placeholder="Nationalities" name="FamilyNationalities"
+                       value="@(Model.FamilyReservation?.Nationalities ?? null)" />
             </div>
             <small class="form-text text-muted">If there is more than one nationality, please separate them by a backslash " \ "</small>
         </div>
@@ -202,13 +182,13 @@
                 <span class="col-form-label col-lg-3 pt-0">Do you want a tour guide ?</span>
                 <div class="col-lg-5 row">
                     <div class="form-check col-2">
-                        <input class="form-check-input" type="radio" name="tourGuide" id="yesTourGuide" value="Yes">
+                        <input class="form-check-input" type="radio" name="FamilyTourGuide" id="yesTourGuide" value="True" @(Model.FamilyReservation?.TourGuide.ToString() == "True" ? "checked" : "")>
                         <label class="form-check-label">
                             Yes
                         </label>
                     </div>
                     <div class="form-check col-lg-2">
-                        <input class="form-check-input" type="radio" name="tourGuide" id="noTourGuide" value="No">
+                        <input class="form-check-input" type="radio" name="FamilyTourGuide" id="noTourGuide" value="False" @(Model.FamilyReservation?.TourGuide.ToString() == "False" ? "checked" : "")>
                         <label class="form-check-label">
                             No
                         </label>
@@ -218,12 +198,19 @@
             <div class="form-group row">
                 <label class="col-lg-4 col-form-label" for="language" style="margin-left: 20px;">If "Yes", please choose the language desired:</label>
                 <div class="col-lg-2">
-                    <select class="form-control" id="languageDropdown" name="language">
-                        <option selected hidden>Choose...</option>
-                        <option value="arabic">Arabic</option>
-                        <option value="english">English</option>
-                        <option value="german">German</option>
-                        <option value="spanish">Spanish</option>
+                    <select class="form-control" id="languageDropdown" name="FamilyTourGuideLanguage">
+                        @* @foreach (var item in model.apis)
+                    {
+                    <!option value="@item.apiid" @item.selectedstring>
+                    @item.apititle
+                    </!option>
+                    } *@
+                        @* opt-out character ("!") *@
+                        <option disabled selected value="">Choose...</option>
+                        <!option value="Arabic" @(Model.FamilyReservation?.TourGuideLanguage.ToString() == "Arabic" ? "selected" : "")>Arabic</!option>
+                        <!option value="English" @(Model.FamilyReservation?.TourGuideLanguage.ToString() == "English" ? "selected" : "")>English</!option>
+                        <!option value="German" @(Model.FamilyReservation?.TourGuideLanguage.ToString() == "German" ? "selected" : "")>German</!option>
+                        <!option value="Spanish" @(Model.FamilyReservation?.TourGuideLanguage.ToString() == "Spanish" ? "selected" : "")>Spanish</!option>
                     </select>
                 </div>
             </div>
@@ -232,24 +219,30 @@
             <div class="col-lg-4">
                 <label class="col-form-label">Start Date</label>
                 <div class="col-5">
-                    <input type="date" class="form-control" name="start" min="@currentDate.ToShortDateString()">
+                    <input type="date" class="form-control" name="FamilyStartDate"
+                           value="@(!string.IsNullOrEmpty(Model.FamilyReservation?.StartDate.ToString()) ? DateTime.Parse(Model.FamilyReservation?.StartDate.ToString()).ToString("yyyy-MM-dd") : string.Empty)"
+                           min="@DateTime.Now.ToString("yyyy-MM-dd")" />
                 </div>
             </div>
             <div class="col-lg-4">
                 <label class="col-form-label">End Date</label>
                 <div class="col-5">
-                    <input type="date" class="form-control" name="end">
+                    @* Edit to make dates available are after the start date *@
+                    <input type="date" class="form-control" name="FamilyEndDate"
+                           value="@(!string.IsNullOrEmpty(Model.FamilyReservation?.EndDate.ToString()) ? DateTime.Parse(Model.FamilyReservation?.EndDate.ToString()).ToString("yyyy-MM-dd") : string.Empty)"
+                           min="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")" />
+
                 </div>
             </div>
         </div>
         <div class="form-group row my-4">
             <label class="col-lg-4 col-form-label" for="siwaTransportation">Choose prefered method of transportation in Siwa</label>
             <div class="col-lg-2">
-                <select class="form-control" id="siwaTransportation" name="siwaTransportation">
-                    <option selected disabled hidden>Choose...</option>
-                    <option value="car">Car vehicle</option>
-                    <option value="tuktuk">Tuktuk</option>
-                    <option value="bicycle">Bicycle</option>
+                <select class="form-control" id="siwaTransportation" name="FamilySiwaTransportation">
+                    <option selected disabled value="">Choose...</option>
+                    <!option value="CarVechile" @(Model.FamilyReservation?.SiwaTransportation.ToString() == "CarVechile" ? "selected" : "")>Car vehicle</!option>
+                    <!option value="Tuktuk" @(Model.FamilyReservation?.SiwaTransportation.ToString() == "Tuktuk" ? "selected" : "")>Tuktuk</!option>
+                    <!option value="Bicycle" @(Model.FamilyReservation?.SiwaTransportation.ToString() == "Bicycle" ? "selected" : "")>Bicycle</!option>
                 </select>
             </div>
         </div>
@@ -258,19 +251,19 @@
                 <span class="col-form-label col-lg-2 pt-0">Choose currency</span>
                 <div class="col-lg-5">
                     <div class="form-check col-lg-10">
-                        <input class="form-check-input" type="radio" name="currency" value="eur">
+                        <input class="form-check-input" type="radio" name="FamilyCurrency" value="eur" @(Model.FamilyReservation?.Currency == "eur" ? "checked" : "")>
                         <label class="form-check-label">
                             Euro (EUR)
                         </label>
                     </div>
                     <div class="form-check col-lg-10">
-                        <input class="form-check-input" type="radio" name="currency" value="usd">
+                        <input class="form-check-input" type="radio" name="FamilyCurrency" value="usd" @(Model.FamilyReservation?.Currency == "usd" ? "checked" : "")>
                         <label class="form-check-label">
                             United States dollar (USD)
                         </label>
                     </div>
                     <div class="form-check col-lg-10">
-                        <input class="form-check-input" type="radio" name="currency" value="egp">
+                        <input class="form-check-input" type="radio" name="FamilyCurrency" value="egp" @(Model.FamilyReservation?.Currency == "egp" ? "checked" : "")>
                         <label class="form-check-label">
                             Egyptian Pound (EGP)
                         </label>
@@ -279,41 +272,51 @@
             </div>
         </div>
         <div class="d-flex justify-content-end">
-            <button type="submit" id="cancel-btn" asp-page="/User/Index" class="btn"> Cancel <i class="fa fa-times" aria-hidden="true" style="margin-left: 3px;"></i></button>
-            <button type="submit" id="normal-btn" asp-page="/User/Reservation/TransportationForm" asp-route-TripType="Family" class="btn" style="margin-left: 10px;">Continue <i class='fas fa-angle-right' style="margin-left: 3px;"></i></button>
+            <button type="submit" id="normal-btn" class="btn" style="margin-left: 10px;">Continue <i class='fas fa-angle-right' style="margin-left: 3px;"></i></button>
+        </div>
+    </form>
+    <form method="post" asp-page-handler="Cancel">
+        <div class="d-flex justify-content-end">
+            <button type="submit" id="cancel-btn" class="btn"> Cancel <i class="fa fa-times" aria-hidden="true" style="margin-left: 3px;"></i></button>
         </div>
     </form>
     <script>
-        const yesTourGuide = document.getElementById("yesTourGuide");
-        const noTourGuide = document.getElementById("noTourGuide");
-        const languageDropdown = document.getElementById("languageDropdown");
+        function initializeTourGuideToggle() {
+            const yesTourGuide = document.getElementById("yesTourGuide");
+            const noTourGuide = document.getElementById("noTourGuide");
+            const languageDropdown = document.getElementById("languageDropdown");
 
-        yesTourGuide.addEventListener("change", function () {
-            if (yesTourGuide.checked) {
-                // Enable the select box
-                languageDropdown.disabled = false;
-            } else {
-                languageDropdown.disabled = true;
-                languageDropdown.selectedIndex = 0;
+            function updateLanguageDropdown() {
+                if (yesTourGuide.checked) {
+                    // Enable the select box
+                    languageDropdown.disabled = false;
+                } else {
+                    languageDropdown.disabled = true;
+                    languageDropdown.selectedIndex = 0;
+                }
             }
-        });
-        noTourGuide.addEventListener("change", function () {
-            if (noTourGuide.checked) {
-                languageDropdown.disabled = true;
-                languageDropdown.selectedIndex = 0;
-            }
-        });
+
+            // Call the function to initialize the state
+            updateLanguageDropdown();
+
+            // Add change event listeners
+            yesTourGuide.addEventListener("change", updateLanguageDropdown);
+            noTourGuide.addEventListener("change", updateLanguageDropdown);
+        }
+
+        // Call the function when the DOM is ready
+        document.addEventListener("DOMContentLoaded", initializeTourGuideToggle);
     </script>
 }
 else if (RouteData.Values["TripType"]?.ToString() == "Solo")
 {
-    TravelPlanner.Core.Reservation.SoloReservation soloReservation = (TravelPlanner.Core.Reservation.SoloReservation) Model.newReservation;
     <h1>PLAN A SOLO TRIP</h1>
-    <form method="post">
+    <form method="post" asp-page-handler="Submit">
         <div class="form-group row my-3">
             <label class="col-lg-3 col-form-label">Enter your nationality</label>
             <div class="col-lg-3">
-                <input type="text" class="form-control" placeholder="Nationality" name="nationalities">
+                <input type="text" class="form-control" placeholder="Nationality" name="SoloNationalities"
+                       value="@(Model.SoloReservation?.Nationalities ?? null)" />
             </div>
         </div>
         <fieldset class="form-group my-3">
@@ -321,13 +324,13 @@ else if (RouteData.Values["TripType"]?.ToString() == "Solo")
                 <span class="col-form-label col-lg-3 pt-0">Do you want a tour guide ?</span>
                 <div class="col-lg-5 row">
                     <div class="form-check col-2">
-                        <input class="form-check-input" type="radio" name="tourGuide" id="yesTourGuide" value="Yes">
+                        <input class="form-check-input" type="radio" name="SoloTourGuide" id="yesTourGuide" value="True" @(Model.SoloReservation?.TourGuide.ToString() == "True" ? "checked" : "") />
                         <label class="form-check-label">
                             Yes
                         </label>
                     </div>
                     <div class="form-check col-lg-2">
-                        <input class="form-check-input" type="radio" name="tourGuide" id="noTourGuide" value="No">
+                        <input class="form-check-input" type="radio" name="SoloTourGuide" id="noTourGuide" value="False" @(Model.SoloReservation?.TourGuide.ToString() == "False" ? "checked" : "") />
                         <label class="form-check-label">
                             No
                         </label>
@@ -337,12 +340,19 @@ else if (RouteData.Values["TripType"]?.ToString() == "Solo")
             <div class="form-group row">
                 <label class="col-lg-4 col-form-label" for="language" style="margin-left: 20px;">If "Yes", please choose the language desired:</label>
                 <div class="col-lg-2">
-                    <select class="form-control" id="languageDropdown" name="language">
-                        <option selected hidden>Choose...</option>
-                        <option value="arabic">Arabic</option>
-                        <option value="english">English</option>
-                        <option value="german">German</option>
-                        <option value="spanish">Spanish</option>
+                    <select class="form-control" id="languageDropdown" name="SoloTourGuideLanguage">
+                        @* @foreach (var item in model.apis)
+                        {
+                        <!option value="@item.apiid" @item.selectedstring>
+                        @item.apititle
+                        </!option>
+                        } *@
+                        @* opt-out character ("!") *@
+                        <option disabled selected value="">Choose...</option>
+                        <!option value="Arabic" @(Model.SoloReservation?.TourGuideLanguage.ToString() == "Arabic" ? "selected" : "")>Arabic</!option>
+                        <!option value="English" @(Model.SoloReservation?.TourGuideLanguage.ToString() == "English" ? "selected" : "")>English</!option>
+                        <!option value="German" @(Model.SoloReservation?.TourGuideLanguage.ToString() == "German" ? "selected" : "")>German</!option>
+                        <!option value="Spanish" @(Model.SoloReservation?.TourGuideLanguage.ToString() == "Spanish" ? "selected" : "")>Spanish</!option>
                     </select>
                 </div>
             </div>
@@ -351,24 +361,29 @@ else if (RouteData.Values["TripType"]?.ToString() == "Solo")
             <div class="col-lg-4">
                 <label class="col-form-label">Start Date</label>
                 <div class="col-5">
-                    <input type="date" class="form-control" name="start" min="@currentDate.ToShortDateString()">
+                    <input type="date" class="form-control" name="SoloStartDate"
+                           value="@(!string.IsNullOrEmpty(Model.SoloReservation?.StartDate.ToString()) ? DateTime.Parse(Model.SoloReservation?.StartDate.ToString()).ToString("yyyy-MM-dd") : string.Empty)"
+                           min="@DateTime.Now.ToString("yyyy-MM-dd")" />
                 </div>
             </div>
             <div class="col-lg-4">
                 <label class="col-form-label">End Date</label>
                 <div class="col-5">
-                    <input type="date" class="form-control" name="end">
+                    @* Edit to make dates available are after the start date *@
+                    <input type="date" class="form-control" name="SoloEndDate"
+                           value="@(!string.IsNullOrEmpty(Model.SoloReservation?.EndDate.ToString()) ? DateTime.Parse(Model.SoloReservation?.EndDate.ToString()).ToString("yyyy-MM-dd") : string.Empty)"
+                           min="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")" />
                 </div>
             </div>
         </div>
         <div class="form-group row my-4">
             <label class="col-lg-4 col-form-label" for="siwaTransportation">Choose prefered method of transportation in Siwa</label>
             <div class="col-lg-2">
-                <select class="form-control" id="siwaTransportation" name="siwaTransportation">
-                    <option selected disabled hidden>Choose...</option>
-                    <option value="car">Car vehicle</option>
-                    <option value="tuktuk">Tuktuk</option>
-                    <option value="bicycle">Bicycle</option>
+                <select class="form-control" id="siwaTransportation" name="SoloSiwaTransportation">
+                    <option selected disabled value="">Choose...</option>
+                    <!option value="CarVechile" @(Model.SoloReservation?.SiwaTransportation.ToString() == "CarVechile" ? "selected" : "")>Car vehicle</!option>
+                    <!option value="Tuktuk" @(Model.SoloReservation?.SiwaTransportation.ToString() == "Tuktuk" ? "selected" : "")>Tuktuk</!option>
+                    <!option value="Bicycle" @(Model.SoloReservation?.SiwaTransportation.ToString() == "Bicycle" ? "selected" : "")>Bicycle</!option>
                 </select>
             </div>
         </div>
@@ -376,13 +391,13 @@ else if (RouteData.Values["TripType"]?.ToString() == "Solo")
             <span class="col-form-label col-lg-3 pt-0">Would you like to join a group ?</span>
             <div class="col-lg-5 row">
                 <div class="form-check col-2">
-                    <input class="form-check-input" type="radio" name="joinGroup" value="Yes">
+                    <input class="form-check-input" type="radio" name="joinGroup" value="True" @(Model.SoloReservation?.TourGuide.ToString() == "True" ? "checked" : "") />
                     <label class="form-check-label">
                         Yes
                     </label>
                 </div>
                 <div class="form-check col-lg-2">
-                    <input class="form-check-input" type="radio" name="joinGroup" value="No">
+                    <input class="form-check-input" type="radio" name="joinGroup" value="False" @(Model.SoloReservation?.TourGuide.ToString() == "False" ? "checked" : "") />
                     <label class="form-check-label">
                         No
                     </label>
@@ -394,19 +409,19 @@ else if (RouteData.Values["TripType"]?.ToString() == "Solo")
                 <span class="col-form-label col-lg-2 pt-0">Choose currency</span>
                 <div class="col-lg-5">
                     <div class="form-check col-lg-10">
-                        <input class="form-check-input" type="radio" name="currency" value="eur">
+                        <input class="form-check-input" type="radio" value="eur" name="SoloCurrency" @(Model.SoloReservation?.Currency == "eur" ? "checked" : "") />
                         <label class="form-check-label">
                             Euro (EUR)
                         </label>
                     </div>
                     <div class="form-check col-lg-10">
-                        <input class="form-check-input" type="radio" name="currency" value="usd">
+                        <input class="form-check-input" type="radio" value="usd" name="SoloCurrency" @(Model.SoloReservation?.Currency == "usd" ? "checked" : "") />
                         <label class="form-check-label">
                             United States dollar (USD)
                         </label>
                     </div>
                     <div class="form-check col-lg-10">
-                        <input class="form-check-input" type="radio" name="currency" value="egp">
+                        <input class="form-check-input" type="radio" value="egp" name="SoloCurrency" @(Model.SoloReservation?.Currency == "egp" ? "checked" : "") />
                         <label class="form-check-label">
                             Egyptian Pound (EGP)
                         </label>
@@ -415,30 +430,40 @@ else if (RouteData.Values["TripType"]?.ToString() == "Solo")
             </div>
         </div>
         <div class="d-flex justify-content-end">
-            <button type="submit" id="cancel-btn" asp-page="/User/Index" class="btn"> Cancel <i class="fa fa-times" aria-hidden="true" style="margin-left: 3px;"></i></button>
-            <button type="submit" id="normal-btn" asp-page="/User/Reservation/TransportationForm" asp-route-TripType="Solo" class="btn" style="margin-left: 10px;">Continue <i class='fas fa-angle-right' style="margin-left: 3px;"></i></button>
+            <button type="submit" id="normal-btn" class="btn" style="margin-left: 10px;">Continue<i class='fas fa-angle-right' style="margin-left: 3px;"></i></button>
+        </div>
+    </form>
+    <form method="post" asp-page-handler="Cancel">
+        <div class="d-flex justify-content-end">
+            <button type="submit" id="cancel-btn" class="btn"> Cancel <i class="fa fa-times" aria-hidden="true" style="margin-left: 3px;"></i></button>
         </div>
     </form>
     <script>
-        const yesTourGuide = document.getElementById("yesTourGuide");
-        const noTourGuide = document.getElementById("noTourGuide");
-        const languageDropdown = document.getElementById("languageDropdown");
+        function initializeTourGuideToggle() {
+            const yesTourGuide = document.getElementById("yesTourGuide");
+            const noTourGuide = document.getElementById("noTourGuide");
+            const languageDropdown = document.getElementById("languageDropdown");
 
-        yesTourGuide.addEventListener("change", function () {
-            if (yesTourGuide.checked) {
-                // Enable the select box
-                languageDropdown.disabled = false;
-            } else {
-                languageDropdown.disabled = true;
-                languageDropdown.selectedIndex = 0;
+            function updateLanguageDropdown() {
+                if (yesTourGuide.checked) {
+                    // Enable the select box
+                    languageDropdown.disabled = false;
+                } else {
+                    languageDropdown.disabled = true;
+                    languageDropdown.selectedIndex = 0;
+                }
             }
-        });
-        noTourGuide.addEventListener("change", function () {
-            if (noTourGuide.checked) {
-                languageDropdown.disabled = true;
-                languageDropdown.selectedIndex = 0;
-            }
-        });
+
+            // Call the function to initialize the state
+            updateLanguageDropdown();
+
+            // Add change event listeners
+            yesTourGuide.addEventListener("change", updateLanguageDropdown);
+            noTourGuide.addEventListener("change", updateLanguageDropdown);
+        }
+
+        // Call the function when the DOM is ready
+        document.addEventListener("DOMContentLoaded", initializeTourGuideToggle);
     </script>
-} *@
+}
 

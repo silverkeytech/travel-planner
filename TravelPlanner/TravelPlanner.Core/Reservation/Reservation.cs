@@ -25,12 +25,12 @@
     }
     public class FamilyReservation : Reservation
     {
-        public int NumberOfAdults { get; set; } = 1;
-        public int NumberOfChildren { get; set; } = 1;
+        public int NumberOfAdults { get; set; }
+        public int NumberOfChildren { get; set; }
     }
     public class FriendsReservation : Reservation
     {
-        public int NumberOfAdults { get; set; } = 2;
+        public int NumberOfAdults { get; set; }
     }
     public class SoloReservation : Reservation
     {
