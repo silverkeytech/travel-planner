@@ -90,6 +90,7 @@
 }
 
 .details-button:hover {
+    color: #fff;
     background-color: #0056b3;
 }
 
@@ -134,7 +135,7 @@ a {
 .search-icon {
     margin-right: 10px;
     color: #333;
-    font-size: 20px;
+    font-size: 16px;
 }
 
 input[type="text"] {
