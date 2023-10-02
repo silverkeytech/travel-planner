@@ -1,4 +1,33 @@
 ﻿@page
 @model TravelPlanner.Pages.User.Reservation.ConfirmReservationModel
 @{
+    <div class="container mt-5">
+        <div class="card shadow">
+            <div class="card-body">
+                <h2 class="card-title text-center mb-4">Reservation Summary</h2>
+                <div class="alert alert-success py-1" role="alert">
+                    Your trip details have been sent to us. An exciting itinerary based on your preferences will be curated just for you!
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">
+                            Your ticket number is: <strong>@Model.TicketNumber</strong><br />
+                            Your special code is: <strong>@Model.Code</strong>
+                        </p>
+                    </div>
+                </div>
+                <p class="text-center">
+                    <i>
+                        An email has been sent to you with this information. We'll notify you once your personalized itinerary is ready.
+                    </i>
+                </p>
+
+                <div class="row justify-content-end">
+                    <div class="col-auto">
+                        <a href="/" class="btn btn-primary">Back to Home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 }
