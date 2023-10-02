@@ -12,9 +12,9 @@ namespace TravelPlanner.Pages.User.Reservation
         {
             _accommodationRepository = accommodationRepository;
         }
-        public async Task<IActionResult> OnGet(Guid id)
+        public async Task<IActionResult> OnGet()
         {
-            Accommodation = await _accommodationRepository.GetAccommodationByIdAsync(id);
+            Accommodation = await _accommodationRepository.GetAccommodationByIdAsync(Request.Query["Id"]);
             if (Accommodation == null)
             {
                 return NotFound();

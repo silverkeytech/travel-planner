@@ -18,7 +18,7 @@
             <div class="accommodation-card">
                 <div class="card-content">
                     <div class="card-content-left">
-                        <img src="~/img/navbar-background.jpg" alt="hotel name" id="hotel-image"/>
+                        <img src="~/img/1.jpg" alt="hotel name" id="hotel-image"/>
                     </div>
                     <div class="card-content-right">
                         <div class="card-header">
@@ -36,7 +36,7 @@
                             <div class="card-description">
                                 <p>@accommodation.ShortDescription</p>
                             </div>
-                            <button class="details-button">Show Prices and Details</button>
+                            <a class="details-button" href="AccommodationDetails?id=@accommodation.Id">Show Prices and Details</a>
                         </div>
                         <div class="card-footer">
                             <div>
@@ -45,7 +45,7 @@
                             <div class="facility-icons">
                                 @foreach (var facility in accommodation.AccommodationFacilities)
                                 {
-                                    <i class="facility-icon">@GetFacilityIcon(facility)</i>
+                                    @Html.Raw(GetFacilityIcon(facility))
                                 }
                             </div>
                         </div>
@@ -61,23 +61,23 @@
         switch (facility)
         {
             case AccommodationFacility.OutdoorSwimmingPool:
-                return "<i class='fas fa-swimming-pool'></i>";
+                return "<i class='fas fa-swimming-pool facility-icon'></i>";
             case AccommodationFacility.FreeParking:
-                return "<i class='fas fa-parking'></i>";
+                return "<i class='fas fa-parking facility-icon'></i>";
             case AccommodationFacility.Restaurant:
-                return "<i class='fas fa-utensils'></i>";
+                return "<i class='fas fa-utensils facility-icon'></i>";
             case AccommodationFacility.SpaAndWellnessCentre:
-                return "<i class='fas fa-spa'></i>";
+                return "<i class='fas fa-spa facility-icon'></i>";
             case AccommodationFacility.PetsAllowed:
-                return "<i class='fas fa-dog'></i>";
+                return "<i class='fas fa-dog facility-icon'></i>";
             case AccommodationFacility.WIFI:
-                return "<i class='fas fa-wifi'></i>";
+                return "<i class='fas fa-wifi facility-icon'></i>";
             case AccommodationFacility.RoomService:
-                return "<i class='fas fa-concierge-bell'></i>";
+                return "<i class='fas fa-concierge-bell facility-icon'></i>";
             case AccommodationFacility.BeachFront:
-                return "<i class='fas fa-umbrella-beach'></i>";
+                return "<i class='fas fa-umbrella-beach facility-icon'></i>";
             case AccommodationFacility.Breakfast:
-                return "<i class='fas fa-coffee'></i>";
+                return "<i class='fas fa-coffee facility-icon'></i>";
             default:
                 return "";
         }

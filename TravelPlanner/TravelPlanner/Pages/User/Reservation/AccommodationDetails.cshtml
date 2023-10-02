@@ -118,7 +118,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var room in Model.Accommodation.Rooms)
+                            @* @foreach (var room in Model.Accommodation.Rooms)
                             {
                                 <tr>
                                     <td>@room.RoomType</td>
@@ -129,7 +129,7 @@
                                         <input type="number" class="form-control form-control-sm" value="0" min="1">
                                     </td>
                                 </tr>
-                            }
+                            } *@
                         </tbody>
                     </table>
                 </div>
@@ -168,7 +168,7 @@
                 <h4 class="card-title text-center">Guest Reviews</h4>
                 <div id="multiItemCarousel" class="carousel slide justify-content-center" data-bs-ride="carousel">
                     <div class="carousel-inner">
-                         @for (var i = 0; i < Model.Accommodation.AccommodationReviews.Count; i++)
+                         @* @for (var i = 0; i < Model.Accommodation.AccommodationReviews.Count; i++)
                         {
                             var review = Model.Accommodation.AccommodationReviews[i];
                             <div class="carousel-item @if (i == 0) { <text>active</text> } p-4">
@@ -181,7 +181,7 @@
                                             <div class="col">
                                                 <h5 class="card-title">@review.GuestName</h5>
                                                 <p class="card-country">
-                                                    <span class="flag-icon flag-icon-@review.Nationality.ToLower()"></span> @review.Nationality
+                                                    <span class="flag-icon flag-icon-us"></span> United States
                                                 </p>
                                             </div>
                                             <div class="col-auto">
@@ -199,7 +199,7 @@
                                     </div>
                                 </div>
                             </div>
-                        }
+                        } *@
                     </div>
                     <a class="carousel-control-prev" href="#multiItemCarousel" role="button" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
