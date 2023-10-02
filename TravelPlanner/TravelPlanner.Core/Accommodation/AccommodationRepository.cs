@@ -10,12 +10,12 @@ public class AccommodationRepository : IAccommodationRepository
         _context = context;
     }
 
-    public async Task<AccommodationView> GetAccommodationByIdAsync(Guid id)
+    public async Task<AccommodationView> GetAccommodationByIdAsync(string id)
     {
         var query = @"SELECT Accommodation {*} FILTER .id = <uuid>$id;";
         var result = await _context.QuerySingleAsync<AccommodationView?>(query, new Dictionary<string, object?>
         {
-            {"id", id}
+            {"id", Guid.Parse(id)}
         });
         return result;
     }
@@ -46,8 +46,8 @@ public class AccommodationRepository : IAccommodationRepository
                             long_description := <str>$long_description,
                             profile_picture_path := <str>$profile_picture_path,
                             number_of_stars := <int16>$number_of_start,
-                            accommodation_facilities := <array<AccommodationFacilities>>accommodation_facilities;
-                            images_path =: <array<str>> images_path;
+                            accommodation_facilities := <array<AccommodationFacilities>>accommodation_facilities,
+                            images_path := <array<str>> images_path,
                             last_update := <datetime>$last_update,
                         }
                     )

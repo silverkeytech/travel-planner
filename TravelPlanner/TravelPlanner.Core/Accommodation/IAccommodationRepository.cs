@@ -2,7 +2,7 @@
 {
     public interface IAccommodationRepository
     {
-        Task<AccommodationView> GetAccommodationByIdAsync(Guid id);
+        Task<AccommodationView> GetAccommodationByIdAsync(string id);
         Task<List<AccommodationView>> GetAllAccommodationsAsync();
         //Task<List<AccommodationView>> GetAccommodationsByFilterAsync(AccommodationFilterCriteria criteria);
         Task<Guid> CreateAccommodationAsync(AccommodationInput accommodation);
