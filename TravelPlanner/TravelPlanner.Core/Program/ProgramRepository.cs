@@ -31,7 +31,8 @@ public class ProgramRepository : IProgramRepository
                     program := (
                         INSERT Program {
                             name := <str>$name,
-                            image_path := <str>$image_path,
+                            profile_picture_path := <str>$profile_picture_path,
+                            images_path := <array<str>>$images_path,
                             description := <str>$description,
                             programs_Highlights := <array<str>>$programs_Highlights,
                             last_update := <datetime>$last_update,
@@ -43,7 +44,8 @@ public class ProgramRepository : IProgramRepository
         var result = await _context.QuerySingleAsync<Guid>(query, new Dictionary<string, object?>
         {
             {"name", program.Name},
-            {"image_path", program.ImagePath},
+            {"profile_picture_path", program.profile_picture_path},
+            {"image_path", program.ImagesPath},
             {"description", program.Description},
             {"programs_Highlights", program.ProgramHighlights},
             {"last_update", program.LastUpdate}
@@ -60,7 +62,8 @@ public class ProgramRepository : IProgramRepository
                 FILTER .id = <uuid>$id
                 SET {
                     name := <str>$name,
-                    image_path := <str>$image_path,
+                    profile_picture_path := <str>$profile_picture_path,
+                    images_path := <array<str>>$images_path,
                     description := <str>$description,
                     programs_Highlights := <array<str>>$programs_Highlights,
                     last_update := <datetime>$last_update,
@@ -71,7 +74,8 @@ public class ProgramRepository : IProgramRepository
             {
                 {"id", id},
                 {"name", program.Name},
-                {"image_path", program.ImagePath},
+                {"profile_picture_path", program.profile_picture_path},
+                {"image_path", program.ImagesPath},
                 {"description", program.Description},
                 {"programs_Highlights", program.ProgramHighlights},
                 {"last_update", program.LastUpdate}
