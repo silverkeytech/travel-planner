@@ -2,6 +2,8 @@ using EdgeDB;
 using TravelPlanner.Core.Accommodation;
 using TravelPlanner.Core.Place;
 using TravelPlanner.Core.Program;
+using TravelPlanner.Core.MailKit;
+using TravelPlanner.Core.Reservation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,9 @@ builder.Services.AddEdgeDB(EdgeDBConnection.FromInstanceName("travel_planner"), 
 builder.Services.AddScoped<IAccommodationRepository, AccommodationRepository>();
 builder.Services.AddScoped<IPlaceRepository, PlaceRepository>();
 builder.Services.AddScoped<IProgramRepository, ProgramRepository>();
+//builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+builder.Services.AddTransient<IEmailSender, EmailSender>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
